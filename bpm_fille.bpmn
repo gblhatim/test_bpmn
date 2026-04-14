@@ -33,6 +33,7 @@
         <bpmn2:flowNodeRef>Activity_1gzcd7k</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_04pgl5c</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ExclusiveGateway_1ouv9kf</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>Activity_09zhcbs</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_1vl2igx" name="Warehouse">
         <bpmn2:extensionElements>
@@ -267,9 +268,18 @@ label</drools:metaValue>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1j94oja</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0kz5g1t</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_161k2ms</bpmn2:outgoing>
     </bpmn2:task>
+    <bpmn2:task id="Activity_09zhcbs">
+      <bpmn2:incoming>Flow_161k2ms</bpmn2:incoming>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="Flow_161k2ms" sourceRef="Task_12j0pib" targetRef="Activity_09zhcbs" />
     <bpmn2:textAnnotation id="TextAnnotation_1ywrqgx" />
     <bpmn2:association id="Association_08lslvs" associationDirection="None" sourceRef="Task_0sl26uo" targetRef="TextAnnotation_1ywrqgx" />
+    <bpmn2:textAnnotation id="TextAnnotation_1l0i910" />
+    <bpmn2:association id="Association_1yahg43" associationDirection="None" sourceRef="Activity_0w2t8kk" targetRef="TextAnnotation_1l0i910" />
+    <bpmn2:textAnnotation id="TextAnnotation_0o8ha27" />
+    <bpmn2:association id="Association_0cgaly0" associationDirection="None" sourceRef="Task_0vaxgaa" targetRef="TextAnnotation_0o8ha27" />
   </bpmn2:process>
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="bpm_fille">
@@ -351,10 +361,20 @@ label</drools:metaValue>
       <bpmndi:BPMNShape id="shape_Task_12j0pib" bpmnElement="Task_12j0pib">
         <dc:Bounds x="681" y="163" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_08lslvs_di" bpmnElement="Association_08lslvs">
-        <di:waypoint x="1242" y="667" />
-        <di:waypoint x="1296" y="610" />
+      <bpmndi:BPMNShape id="Activity_09zhcbs_di" bpmnElement="Activity_09zhcbs">
+        <dc:Bounds x="850" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1yahg43_di" bpmnElement="Association_1yahg43">
+        <di:waypoint x="708" y="740" />
+        <di:waypoint x="756" y="690" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0cgaly0_di" bpmnElement="Association_0cgaly0">
+        <di:waypoint x="477" y="444" />
+        <di:waypoint x="526" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1ywrqgx_di" bpmnElement="TextAnnotation_1ywrqgx">
+        <dc:Bounds x="1260" y="580" width="100" height="30" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="edge_shape_Activity_0w2t8kk_to_shape_Event_042k091" bpmnElement="Flow_0tz4ikt">
         <di:waypoint x="720" y="780" />
         <di:waypoint x="772" y="780" />
@@ -476,8 +496,21 @@ label</drools:metaValue>
         <di:waypoint x="623" y="203" />
         <di:waypoint x="681" y="203" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1ywrqgx_di" bpmnElement="TextAnnotation_1ywrqgx">
-        <dc:Bounds x="1260" y="580" width="100" height="30" />
+      <bpmndi:BPMNEdge id="Association_08lslvs_di" bpmnElement="Association_08lslvs">
+        <di:waypoint x="1242" y="667" />
+        <di:waypoint x="1296" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1l0i910_di" bpmnElement="TextAnnotation_1l0i910">
+        <dc:Bounds x="720" y="660" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_161k2ms_di" bpmnElement="Flow_161k2ms">
+        <di:waypoint x="781" y="203" />
+        <di:waypoint x="820" y="203" />
+        <di:waypoint x="820" y="320" />
+        <di:waypoint x="850" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0o8ha27_di" bpmnElement="TextAnnotation_0o8ha27">
+        <dc:Bounds x="490" y="360" width="100" height="30" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
