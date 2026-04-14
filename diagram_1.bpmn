@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_18qqoka" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.41.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:process id="Process_00skvk1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_190y7gj</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0nuffe9">
+      <bpmn:incoming>Flow_190y7gj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l1mtc4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_190y7gj" sourceRef="StartEvent_1" targetRef="Activity_0nuffe9" />
+    <bpmn:task id="Activity_087xtfo">
+      <bpmn:incoming>Flow_0l1mtc4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zofvvu</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0l1mtc4" sourceRef="Activity_0nuffe9" targetRef="Activity_087xtfo" />
+    <bpmn:task id="Activity_1areut5">
+      <bpmn:incoming>Flow_0zofvvu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f1fdnz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0zofvvu" sourceRef="Activity_087xtfo" targetRef="Activity_1areut5" />
+    <bpmn:task id="Activity_0rxnmu4">
+      <bpmn:incoming>Flow_0f1fdnz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kzf9at</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0f1fdnz" sourceRef="Activity_1areut5" targetRef="Activity_0rxnmu4" />
+    <bpmn:endEvent id="Event_1a2fxfx">
+      <bpmn:incoming>Flow_0kzf9at</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0kzf9at" sourceRef="Activity_0rxnmu4" targetRef="Event_1a2fxfx" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_00skvk1">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nuffe9_di" bpmnElement="Activity_0nuffe9">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_087xtfo_di" bpmnElement="Activity_087xtfo">
+        <dc:Bounds x="430" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1areut5_di" bpmnElement="Activity_1areut5">
+        <dc:Bounds x="590" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rxnmu4_di" bpmnElement="Activity_0rxnmu4">
+        <dc:Bounds x="750" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1a2fxfx_di" bpmnElement="Event_1a2fxfx">
+        <dc:Bounds x="912" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_190y7gj_di" bpmnElement="Flow_190y7gj">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l1mtc4_di" bpmnElement="Flow_0l1mtc4">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="430" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zofvvu_di" bpmnElement="Flow_0zofvvu">
+        <di:waypoint x="530" y="120" />
+        <di:waypoint x="590" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f1fdnz_di" bpmnElement="Flow_0f1fdnz">
+        <di:waypoint x="690" y="120" />
+        <di:waypoint x="750" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kzf9at_di" bpmnElement="Flow_0kzf9at">
+        <di:waypoint x="850" y="120" />
+        <di:waypoint x="912" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
