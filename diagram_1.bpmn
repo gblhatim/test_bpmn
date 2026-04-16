@@ -7,12 +7,22 @@
     <bpmn:task id="Activity_0yswz23">
       <bpmn:incoming>Flow_17jelc8</bpmn:incoming>
       <bpmn:outgoing>Flow_1hlpbkm</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1wetzgx</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_17jelc8" sourceRef="StartEvent_1" targetRef="Activity_0yswz23" />
     <bpmn:sequenceFlow id="Flow_1hlpbkm" sourceRef="Activity_0yswz23" targetRef="Event_1qtapzs" />
     <bpmn:endEvent id="Event_1qtapzs">
       <bpmn:incoming>Flow_1hlpbkm</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:task id="Activity_1asnugk">
+      <bpmn:incoming>Flow_1wetzgx</bpmn:incoming>
+      <bpmn:outgoing>Flow_099p8b7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1wetzgx" sourceRef="Activity_0yswz23" targetRef="Activity_1asnugk" />
+    <bpmn:endEvent id="Event_1ak77l0">
+      <bpmn:incoming>Flow_099p8b7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_099p8b7" sourceRef="Activity_1asnugk" targetRef="Event_1ak77l0" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_00skvk1">
@@ -25,6 +35,12 @@
       <bpmndi:BPMNShape id="Event_1qtapzs_di" bpmnElement="Event_1qtapzs">
         <dc:Bounds x="422" y="242" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1asnugk_di" bpmnElement="Activity_1asnugk">
+        <dc:Bounds x="430" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ak77l0_di" bpmnElement="Event_1ak77l0">
+        <dc:Bounds x="592" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17jelc8_di" bpmnElement="Flow_17jelc8">
         <di:waypoint x="218" y="100" />
         <di:waypoint x="270" y="100" />
@@ -35,6 +51,14 @@
         <di:waypoint x="320" y="180" />
         <di:waypoint x="320" y="260" />
         <di:waypoint x="422" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wetzgx_di" bpmnElement="Flow_1wetzgx">
+        <di:waypoint x="370" y="100" />
+        <di:waypoint x="430" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_099p8b7_di" bpmnElement="Flow_099p8b7">
+        <di:waypoint x="530" y="100" />
+        <di:waypoint x="592" y="100" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
