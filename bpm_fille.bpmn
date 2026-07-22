@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi_1="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:drools="http://www.jboss.org/drools" xmlns:xsi="xsi" id="_P98tEBpeED-R6aqi2PT8FQ" targetNamespace="http://www.omg.org/bpmn20" exporter="Camunda Modeler" exporterVersion="5.41.0">
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi_1="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:drools="http://www.jboss.org/drools" xmlns:xsi="xsi" id="_P98tEBpeED-R6aqi2PT8FQ" targetNamespace="http://www.omg.org/bpmn20" exporter="Camunda Modeler" exporterVersion="5.41.0">
   <bpmn2:collaboration id="_1C866726-EFD7-45B2-AF37-C017FD34020F" name="Default Collaboration">
     <bpmn2:participant id="_78D98335-BC5B-4A09-A281-028D8991D690" name="Pool Participant" processRef="bpm_fille" />
   </bpmn2:collaboration>
@@ -29,7 +29,6 @@
         <bpmn2:flowNodeRef>StartEvent_1</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Task_0vaxgaa</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Task_0jsoxba</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>Task_0e6hvnj</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Task_0s79ile</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ParallelGateway_02fgrfq</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0s82fs4</bpmn2:flowNodeRef>
@@ -41,7 +40,6 @@
           </drools:metaData>
         </bpmn2:extensionElements>
         <bpmn2:flowNodeRef>ExclusiveGateway_0z5sib0</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>Task_0sl26uo</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>EndEvent_1fx9yp3</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Gateway_057hfxd</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Event_042k091</bpmn2:flowNodeRef>
@@ -56,8 +54,6 @@
     </bpmn2:laneSet>
     <bpmn2:sequenceFlow id="Flow_0tz4ikt" sourceRef="Activity_0w2t8kk" targetRef="Event_042k091" />
     <bpmn2:sequenceFlow id="Flow_0y3wmli" sourceRef="Gateway_057hfxd" targetRef="Activity_0w2t8kk" />
-    <bpmn2:sequenceFlow id="SequenceFlow_0v64x8b" sourceRef="Task_0sl26uo" targetRef="EndEvent_1fx9yp3" />
-    <bpmn2:sequenceFlow id="SequenceFlow_06kfaev" sourceRef="ExclusiveGateway_0z5sib0" targetRef="Task_0sl26uo" />
     <bpmn2:sequenceFlow id="Flow_0g1x3hz" sourceRef="Gateway_057hfxd" targetRef="ExclusiveGateway_0z5sib0" />
     <bpmn2:sequenceFlow id="Flow_08g6dtz" sourceRef="Task_05ftug5" targetRef="Gateway_057hfxd" />
     <bpmn2:sequenceFlow id="Flow_1awrh6t" sourceRef="ExclusiveGateway_1ouv9kf" targetRef="Activity_0w2t8kk" />
@@ -67,8 +63,7 @@
     <bpmn2:sequenceFlow id="Flow_0gps9n9" sourceRef="ExclusiveGateway_1ouv9kf" targetRef="Activity_1gzcd7k" />
     <bpmn2:sequenceFlow id="Flow_1xle7i3" sourceRef="Activity_04pgl5c" targetRef="Event_0tp09hn" />
     <bpmn2:sequenceFlow id="SequenceFlow_0ajhekx" sourceRef="Task_0s79ile" targetRef="ExclusiveGateway_1ouv9kf" />
-    <bpmn2:sequenceFlow id="SequenceFlow_1pq8ub3" sourceRef="Task_0e6hvnj" targetRef="Task_0s79ile" />
-    <bpmn2:sequenceFlow id="SequenceFlow_1xv6wk4" name="yes" sourceRef="ExclusiveGateway_1mpgzhg" targetRef="Task_0e6hvnj">
+    <bpmn2:sequenceFlow id="SequenceFlow_1xv6wk4" name="yes" sourceRef="ExclusiveGateway_1mpgzhg" targetRef="Task_0s79ile">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
           <drools:metaValue>yes</drools:metaValue>
@@ -98,24 +93,10 @@
 prepared</drools:metaValue>
         </drools:metaData>
       </bpmn2:extensionElements>
-      <bpmn2:incoming>SequenceFlow_0v64x8b</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:task id="Task_0sl26uo" name="Prepare for&#10;picking up&#10;goods">
-      <bpmn2:extensionElements>
-        <drools:metaData name="elementname">
-          <drools:metaValue>Prepare for
-picking up
-goods</drools:metaValue>
-        </drools:metaData>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>SequenceFlow_06kfaev</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_0v64x8b</bpmn2:outgoing>
-      <bpmn2:outgoing>Flow_08batv4</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_0z5sib0" gatewayDirection="Converging">
       <bpmn2:incoming>SequenceFlow_035vf60</bpmn2:incoming>
       <bpmn2:incoming>Flow_0g1x3hz</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_06kfaev</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_1ouv9kf">
       <bpmn2:incoming>SequenceFlow_0buzwss</bpmn2:incoming>
@@ -175,9 +156,7 @@ sandling?</drools:metaValue>
       <bpmn2:incoming>Flow_0p305pb</bpmn2:incoming>
       <bpmn2:outgoing>Flow_192azhz</bpmn2:outgoing>
     </bpmn2:receiveTask>
-    <bpmn2:sequenceFlow id="Flow_08batv4" sourceRef="Task_0sl26uo" targetRef="Activity_17s4mbp" />
     <bpmn2:callActivity id="Activity_17s4mbp" calledElement="http://127.0.0.1:8000">
-      <bpmn2:incoming>Flow_08batv4</bpmn2:incoming>
       <bpmn2:outgoing>Flow_00v3t2a</bpmn2:outgoing>
     </bpmn2:callActivity>
     <bpmn2:endEvent id="Event_1rk5upr">
@@ -202,12 +181,8 @@ sandling?</drools:metaValue>
       <bpmn2:incoming>Flow_09thaae</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0kz5g1t</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:scriptTask id="Task_0e6hvnj" name="Get 3 offers&#10;from logistic&#10;companies">
-      <bpmn2:incoming>SequenceFlow_1xv6wk4</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_1pq8ub3</bpmn2:outgoing>
-    </bpmn2:scriptTask>
     <bpmn2:userTask id="Task_0s79ile" name="Select logistic&#10;company and&#10;place order">
-      <bpmn2:incoming>SequenceFlow_1pq8ub3</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_1xv6wk4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0ajhekx</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:endEvent id="Event_1wd7nn7">
@@ -270,7 +245,6 @@ sandling?</drools:metaValue>
     <bpmn2:sequenceFlow id="Flow_10q6lh8" sourceRef="ExclusiveGateway_1mpgzhg" targetRef="Task_0jsoxba" />
     <bpmn2:sequenceFlow id="Flow_09thaae" sourceRef="Task_0vaxgaa" targetRef="Task_12j0pib" />
     <bpmn2:textAnnotation id="TextAnnotation_1ywrqgx" />
-    <bpmn2:association id="Association_08lslvs" associationDirection="None" sourceRef="Task_0sl26uo" targetRef="TextAnnotation_1ywrqgx" />
     <bpmn2:textAnnotation id="TextAnnotation_181j5zt" />
     <bpmn2:association id="Association_1kepxap" associationDirection="None" sourceRef="Activity_0w2t8kk" targetRef="TextAnnotation_181j5zt" />
     <bpmn2:textAnnotation id="TextAnnotation_0va1v7v" />
@@ -296,9 +270,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNShape id="shape_EndEvent_1fx9yp3" bpmnElement="EndEvent_1fx9yp3">
         <dc:Bounds x="1318" y="689" width="56" height="56" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="shape_Task_0sl26uo" bpmnElement="Task_0sl26uo">
-        <dc:Bounds x="1154" y="667" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_ExclusiveGateway_0z5sib0" bpmnElement="ExclusiveGateway_0z5sib0" isMarkerVisible="true">
         <dc:Bounds x="1053" y="682" width="56" height="56" />
       </bpmndi:BPMNShape>
@@ -310,6 +281,12 @@ sandling?</drools:metaValue>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_ExclusiveGateway_1mpgzhg" bpmnElement="ExclusiveGateway_1mpgzhg" isMarkerVisible="true">
         <dc:Bounds x="528" y="459" width="56" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds x="229" y="372" width="56" height="56" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="229" y="348" width="56" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_InclusiveGateway_1dgb4sg" bpmnElement="InclusiveGateway_1dgb4sg">
         <dc:Bounds x="836" y="350" width="56" height="56" />
@@ -326,12 +303,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNShape id="Activity_1hrgwu4_di" bpmnElement="Activity_0f9vi9s">
         <dc:Bounds x="1120" y="560" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="shape_StartEvent_1" bpmnElement="StartEvent_1">
-        <dc:Bounds x="229" y="372" width="56" height="56" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="229" y="348" width="56" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0mtl2tu_di" bpmnElement="Activity_17s4mbp">
         <dc:Bounds x="1320" y="780" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -346,9 +317,6 @@ sandling?</drools:metaValue>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1fnc8ty_di" bpmnElement="Task_12j0pib">
         <dc:Bounds x="681" y="163" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0wpldwi_di" bpmnElement="Task_0e6hvnj">
-        <dc:Bounds x="605" y="444" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0by0my5_di" bpmnElement="Task_0s79ile">
         <dc:Bounds x="761" y="444" width="100" height="80" />
@@ -397,14 +365,6 @@ sandling?</drools:metaValue>
         <di:waypoint x="550" y="780" />
         <di:waypoint x="620" y="780" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Task_0sl26uo_to_shape_EndEvent_1fx9yp3" bpmnElement="SequenceFlow_0v64x8b">
-        <di:waypoint x="1254" y="707" />
-        <di:waypoint x="1318" y="707" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_ExclusiveGateway_0z5sib0_to_shape_Task_0sl26uo" bpmnElement="SequenceFlow_06kfaev">
-        <di:waypoint x="1103" y="707" />
-        <di:waypoint x="1154" y="707" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_Gateway_057hfxd_to_shape_ExclusiveGateway_0z5sib0" bpmnElement="Flow_0g1x3hz">
         <di:waypoint x="575" y="707" />
         <di:waypoint x="1053" y="707" />
@@ -452,15 +412,11 @@ sandling?</drools:metaValue>
         <di:waypoint x="893" y="550" />
         <di:waypoint x="958" y="550" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Task_0e6hvnj_to_shape_Task_0s79ile" bpmnElement="SequenceFlow_1pq8ub3">
-        <di:waypoint x="705" y="484" />
-        <di:waypoint x="761" y="484" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_ExclusiveGateway_1mpgzhg_to_shape_Task_0e6hvnj" bpmnElement="SequenceFlow_1xv6wk4">
         <di:waypoint x="581" y="484" />
-        <di:waypoint x="605" y="484" />
+        <di:waypoint x="761" y="484" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="584" y="459" width="17" height="14" />
+          <dc:Bounds x="598" y="459" width="17" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_Task_0vaxgaa_to_shape_ExclusiveGateway_1mpgzhg" bpmnElement="SequenceFlow_1rss71o">
@@ -489,24 +445,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNEdge id="edge_shape_Task_12j0pib_to_shape_Activity_0s1ktqa" bpmnElement="SequenceFlow_0kz5g1t">
         <di:waypoint x="781" y="203" />
         <di:waypoint x="850" y="203" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_08lslvs_di" bpmnElement="Association_08lslvs">
-        <di:waypoint x="1242" y="667" />
-        <di:waypoint x="1296" y="610" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1kepxap_di" bpmnElement="Association_1kepxap">
-        <di:waypoint x="708" y="740" />
-        <di:waypoint x="756" y="690" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1g47cck_di" bpmnElement="Association_1g47cck">
-        <di:waypoint x="477" y="444" />
-        <di:waypoint x="526" y="390" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08batv4_di" bpmnElement="Flow_08batv4">
-        <di:waypoint x="1254" y="707" />
-        <di:waypoint x="1290" y="707" />
-        <di:waypoint x="1290" y="820" />
-        <di:waypoint x="1320" y="820" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_00v3t2a_di" bpmnElement="Flow_00v3t2a">
         <di:waypoint x="1420" y="820" />
@@ -555,6 +493,14 @@ sandling?</drools:metaValue>
         <di:waypoint x="440" y="444" />
         <di:waypoint x="440" y="203" />
         <di:waypoint x="681" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1kepxap_di" bpmnElement="Association_1kepxap">
+        <di:waypoint x="708" y="740" />
+        <di:waypoint x="756" y="690" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1g47cck_di" bpmnElement="Association_1g47cck">
+        <di:waypoint x="477" y="444" />
+        <di:waypoint x="526" y="390" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
