@@ -7,7 +7,7 @@ Agnostique au canal : la variable 'customerPresent' porte a elle seule la differ
     <bpmn:startEvent id="Start_Diag">
       <bpmn:outgoing>F_d01</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="ST_FetchLine" name="Lire l&#39;etat de la ligne" camunda:asyncBefore="true" camunda:type="external" camunda:topic="ftth.line.status">
+    <bpmn:serviceTask id="ST_FetchLinedsqdq" name="Lire l&#39;etat de la ligne" camunda:asyncBefore="true" camunda:type="external" camunda:topic="ftth.line.status">
       <bpmn:extensionElements>
         <camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle>
       </bpmn:extensionElements>
