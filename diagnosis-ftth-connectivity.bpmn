@@ -42,15 +42,6 @@ Agnostique au canal : la variable 'customerPresent' porte a elle seule la differ
       <bpmn:incoming>F_d06</bpmn:incoming>
       <bpmn:outgoing>F_d10</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:callActivity id="CA_Cpe" name="Diagnostic box / CPE" calledElement="diagnosis-cpe" camunda:calledElementBinding="deployment">
-      <bpmn:extensionElements>
-        <camunda:in source="lineId" target="lineId" />
-        <camunda:in source="customerPresent" target="customerPresent" />
-        <camunda:out source="rootCauseFound" target="rootCauseFound" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>F_d07</bpmn:incoming>
-      <bpmn:outgoing>F_d11</bpmn:outgoing>
-    </bpmn:callActivity>
     <bpmn:serviceTask id="ST_CheckOutage" name="Interroger le registre des pannes" camunda:asyncBefore="true" camunda:type="external" camunda:topic="network.outage.lookup">
       <bpmn:extensionElements>
         <camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle>
@@ -78,7 +69,7 @@ https://kb.internal/ftth/0088</bpmn:documentation>
     <bpmn:exclusiveGateway id="GW_DiagMerge">
       <bpmn:incoming>F_d09</bpmn:incoming>
       <bpmn:incoming>F_d10</bpmn:incoming>
-      <bpmn:incoming>F_d11</bpmn:incoming>
+      <bpmn:incoming>F_d07</bpmn:incoming>
       <bpmn:outgoing>F_d16</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="GW_CustomerPresent" name="Client en ligne ?">
@@ -100,15 +91,15 @@ https://kb.internal/ftth/0150</bpmn:documentation>
     <bpmn:endEvent id="End_Diagnosed" name="Diagnostic etabli">
       <bpmn:incoming>F_d20</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="F_d01" sourceRef="Start_Diag" targetRef="ST_FetchLine" />
-    <bpmn:sequenceFlow id="F_d02" sourceRef="ST_FetchLine" targetRef="GW_FaultCat" />
+    <bpmn:sequenceFlow id="F_d01" sourceRef="Start_Diag" />
+    <bpmn:sequenceFlow id="F_d02" targetRef="GW_FaultCat" />
     <bpmn:sequenceFlow id="F_d05" name="OPTICAL" sourceRef="GW_FaultCat" targetRef="CA_Optical">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'OPTICAL'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d06" name="ONT" sourceRef="GW_FaultCat" targetRef="CA_Ont">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'ONT'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d07" name="ROUTER" sourceRef="GW_FaultCat" targetRef="CA_Cpe">
+    <bpmn:sequenceFlow id="F_d07" name="ROUTER" sourceRef="GW_FaultCat" targetRef="GW_DiagMerge">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'ROUTER'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d08" name="NETWORK" sourceRef="GW_FaultCat" targetRef="ST_CheckOutage">
@@ -116,7 +107,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d09" sourceRef="CA_Optical" targetRef="GW_DiagMerge" />
     <bpmn:sequenceFlow id="F_d10" sourceRef="CA_Ont" targetRef="GW_DiagMerge" />
-    <bpmn:sequenceFlow id="F_d11" sourceRef="CA_Cpe" targetRef="GW_DiagMerge" />
     <bpmn:sequenceFlow id="F_d12" sourceRef="ST_CheckOutage" targetRef="GW_KnownOutage" />
     <bpmn:sequenceFlow id="F_d13" name="oui" sourceRef="GW_KnownOutage" targetRef="UT_InformOutage">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${knownOutage == true}</bpmn:conditionExpression>
@@ -140,9 +130,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       <bpmndi:BPMNShape id="Shape_Start_Diag" bpmnElement="Start_Diag">
         <dc:Bounds x="160" y="232" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_ST_FetchLine" bpmnElement="ST_FetchLine">
-        <dc:Bounds x="350" y="210" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_End_TechUnavailable" bpmnElement="End_TechUnavailable">
         <dc:Bounds x="540" y="622" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -160,9 +147,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_CA_Ont" bpmnElement="CA_Ont">
         <dc:Bounds x="920" y="210" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_CA_Cpe" bpmnElement="CA_Cpe">
-        <dc:Bounds x="920" y="340" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_ST_CheckOutage" bpmnElement="ST_CheckOutage">
         <dc:Bounds x="920" y="470" width="100" height="80" />
@@ -209,14 +193,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
           <dc:Bounds x="1837" y="274" width="102" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Edge_F_d01" bpmnElement="F_d01">
-        <di:waypoint x="196" y="250" />
-        <di:waypoint x="350" y="250" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_F_d02" bpmnElement="F_d02">
-        <di:waypoint x="450" y="250" />
-        <di:waypoint x="730" y="250" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d05" bpmnElement="F_d05">
         <di:waypoint x="780" y="250" />
         <di:waypoint x="850" y="250" />
@@ -235,11 +211,9 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d07" bpmnElement="F_d07">
         <di:waypoint x="780" y="250" />
-        <di:waypoint x="850" y="250" />
-        <di:waypoint x="850" y="380" />
-        <di:waypoint x="920" y="380" />
+        <di:waypoint x="1110" y="250" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="829" y="356" width="42" height="14" />
+          <dc:Bounds x="839" y="356" width="48" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d08" bpmnElement="F_d08">
@@ -259,12 +233,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d10" bpmnElement="F_d10">
         <di:waypoint x="1020" y="250" />
-        <di:waypoint x="1110" y="250" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_F_d11" bpmnElement="F_d11">
-        <di:waypoint x="1020" y="380" />
-        <di:waypoint x="1065" y="380" />
-        <di:waypoint x="1065" y="250" />
         <di:waypoint x="1110" y="250" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d12" bpmnElement="F_d12">
