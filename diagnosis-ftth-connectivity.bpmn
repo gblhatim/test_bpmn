@@ -48,6 +48,7 @@ Agnostique au canal : la variable 'customerPresent' porte a elle seule la differ
       </bpmn:extensionElements>
       <bpmn:incoming>F_d08</bpmn:incoming>
       <bpmn:outgoing>F_d12</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07dgbvj</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="GW_KnownOutage" name="Panne connue ?">
       <bpmn:incoming>F_d12</bpmn:incoming>
@@ -124,6 +125,10 @@ https://kb.internal/ftth/0150</bpmn:documentation>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d19" sourceRef="UT_ConfirmDiag" targetRef="GW_DiagEnd" />
     <bpmn:sequenceFlow id="F_d20" sourceRef="GW_DiagEnd" targetRef="End_Diagnosed" />
+    <bpmn:exclusiveGateway id="Gateway_1cfgug2">
+      <bpmn:incoming>Flow_07dgbvj</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_07dgbvj" sourceRef="ST_CheckOutage" targetRef="Gateway_1cfgug2" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="diagnosis-ftth-connectivity">
@@ -192,6 +197,9 @@ https://kb.internal/ftth/0150</bpmn:documentation>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1837" y="274" width="102" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cfgug2_di" bpmnElement="Gateway_1cfgug2" isMarkerVisible="true">
+        <dc:Bounds x="1115" y="595" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Edge_F_d05" bpmnElement="F_d05">
         <di:waypoint x="780" y="250" />
@@ -284,6 +292,11 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       <bpmndi:BPMNEdge id="Edge_F_d20" bpmnElement="F_d20">
         <di:waypoint x="1730" y="250" />
         <di:waypoint x="1870" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07dgbvj_di" bpmnElement="Flow_07dgbvj">
+        <di:waypoint x="1020" y="510" />
+        <di:waypoint x="1140" y="510" />
+        <di:waypoint x="1140" y="595" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
