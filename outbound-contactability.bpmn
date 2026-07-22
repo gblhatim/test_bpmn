@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_outbound_contactability"
+                  targetNamespace="http://bouyguestelecom.fr/bdm"
+                  exporter="BDM 2.0 generator" exporterVersion="1.0">
+  <bpmn:process id="outbound-contactability" name="L3 - Joignabilite sortante" isExecutable="true" camunda:versionTag="1.0.0" camunda:historyTimeToLive="180">
+    <bpmn:documentation>NIVEAU L3. Pre-phase specifique au canal sortant : opt-out, plage d'appel autorisee, plafond de tentatives.
+Le plafond et les plages horaires sont en DMN (L5), pas dessines.</bpmn:documentation>
+    <bpmn:startEvent id="Start_Out">
+      <bpmn:outgoing>F_c01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ST_CheckOptOut" name="Verifier le consentement" camunda:type="external" camunda:topic="crm.consent.read" camunda:asyncBefore="true">
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+      <bpmn:incoming>F_c01</bpmn:incoming>
+      <bpmn:outgoing>F_c02</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW_OptedOut" name="Opt-out ?">
+      <bpmn:incoming>F_c02</bpmn:incoming>
+      <bpmn:outgoing>F_c03</bpmn:outgoing>
+      <bpmn:outgoing>F_c04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_OptedOut" name="Opt-out - exclu">
+      <bpmn:incoming>F_c03</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_Attempts" name="Tentatives restantes ?">
+      <bpmn:incoming>F_c04</bpmn:incoming>
+      <bpmn:outgoing>F_c05</bpmn:outgoing>
+      <bpmn:outgoing>F_c06</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_MaxAttempts" name="Plafond atteint">
+      <bpmn:incoming>F_c05</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:businessRuleTask id="BR_CallWindow" name="Evaluer la plage d'appel" camunda:decisionRef="outbound-call-window" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry" camunda:resultVariable="inCallWindow">
+      <bpmn:incoming>F_c06</bpmn:incoming>
+      <bpmn:incoming>F_c10</bpmn:incoming>
+      <bpmn:outgoing>F_c07</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="GW_InWindow" name="Dans la plage ?">
+      <bpmn:incoming>F_c07</bpmn:incoming>
+      <bpmn:outgoing>F_c08</bpmn:outgoing>
+      <bpmn:outgoing>F_c09</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="IE_WaitWindow" name="Attendre la prochaine plage">
+      <bpmn:incoming>F_c08</bpmn:incoming>
+      <bpmn:outgoing>F_c10</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TED_IE_WaitWindow"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2H</bpmn:timeDuration></bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="ST_MarkReachable" name="Marquer joignable" camunda:type="external" camunda:topic="campaign.attempt.register" camunda:asyncBefore="true" camunda:asyncAfter="true">
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+      <bpmn:incoming>F_c09</bpmn:incoming>
+      <bpmn:outgoing>F_c11</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="End_Reachable" name="Joignable">
+      <bpmn:incoming>F_c11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_c01" sourceRef="Start_Out" targetRef="ST_CheckOptOut" />
+    <bpmn:sequenceFlow id="F_c02" sourceRef="ST_CheckOptOut" targetRef="GW_OptedOut" />
+    <bpmn:sequenceFlow id="F_c03" sourceRef="GW_OptedOut" targetRef="End_OptedOut" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${optedOut == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c04" sourceRef="GW_OptedOut" targetRef="GW_Attempts" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${optedOut == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c05" sourceRef="GW_Attempts" targetRef="End_MaxAttempts" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${attemptCount &gt;= maxAttempts}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c06" sourceRef="GW_Attempts" targetRef="BR_CallWindow" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${attemptCount &lt; maxAttempts}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c07" sourceRef="BR_CallWindow" targetRef="GW_InWindow" />
+    <bpmn:sequenceFlow id="F_c08" sourceRef="GW_InWindow" targetRef="IE_WaitWindow" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${inCallWindow == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c09" sourceRef="GW_InWindow" targetRef="ST_MarkReachable" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${inCallWindow == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_c10" sourceRef="IE_WaitWindow" targetRef="BR_CallWindow" name="re-evaluer" />
+    <bpmn:sequenceFlow id="F_c11" sourceRef="ST_MarkReachable" targetRef="End_Reachable" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="outbound-contactability">
+      <bpmndi:BPMNShape id="Shape_Start_Out" bpmnElement="Start_Out">
+        <dc:Bounds x="160" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ST_CheckOptOut" bpmnElement="ST_CheckOptOut">
+        <dc:Bounds x="350" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_OptedOut" bpmnElement="GW_OptedOut" isMarkerVisible="true">
+        <dc:Bounds x="540" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="281" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_OptedOut" bpmnElement="End_OptedOut">
+        <dc:Bounds x="730" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="703" y="144" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_Attempts" bpmnElement="GW_Attempts" isMarkerVisible="true">
+        <dc:Bounds x="730" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="689" y="281" width="132" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_MaxAttempts" bpmnElement="End_MaxAttempts">
+        <dc:Bounds x="920" y="362" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="893" y="404" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_BR_CallWindow" bpmnElement="BR_CallWindow">
+        <dc:Bounds x="920" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_InWindow" bpmnElement="GW_InWindow" isMarkerVisible="true">
+        <dc:Bounds x="1110" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1090" y="281" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_IE_WaitWindow" bpmnElement="IE_WaitWindow">
+        <dc:Bounds x="1300" y="492" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="534" width="150" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ST_MarkReachable" bpmnElement="ST_MarkReachable">
+        <dc:Bounds x="1300" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Reachable" bpmnElement="End_Reachable">
+        <dc:Bounds x="1490" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1478" y="274" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_F_c01" bpmnElement="F_c01">
+        <di:waypoint x="196" y="250" />
+        <di:waypoint x="350" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c02" bpmnElement="F_c02">
+        <di:waypoint x="450" y="250" />
+        <di:waypoint x="540" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c03" bpmnElement="F_c03">
+        <di:waypoint x="590" y="250" />
+        <di:waypoint x="660" y="250" />
+        <di:waypoint x="660" y="120" />
+        <di:waypoint x="730" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="96" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c04" bpmnElement="F_c04">
+        <di:waypoint x="590" y="250" />
+        <di:waypoint x="730" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="710" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c05" bpmnElement="F_c05">
+        <di:waypoint x="780" y="250" />
+        <di:waypoint x="850" y="250" />
+        <di:waypoint x="850" y="380" />
+        <di:waypoint x="920" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="830" y="356" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c06" bpmnElement="F_c06">
+        <di:waypoint x="780" y="250" />
+        <di:waypoint x="920" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="900" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c07" bpmnElement="F_c07">
+        <di:waypoint x="1020" y="250" />
+        <di:waypoint x="1110" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c08" bpmnElement="F_c08">
+        <di:waypoint x="1160" y="250" />
+        <di:waypoint x="1230" y="250" />
+        <di:waypoint x="1230" y="510" />
+        <di:waypoint x="1300" y="510" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1210" y="486" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c09" bpmnElement="F_c09">
+        <di:waypoint x="1160" y="250" />
+        <di:waypoint x="1300" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1280" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c10" bpmnElement="F_c10">
+        <di:waypoint x="1318" y="528" />
+        <di:waypoint x="1318" y="598" />
+        <di:waypoint x="970" y="598" />
+        <di:waypoint x="970" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="935" y="574" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_c11" bpmnElement="F_c11">
+        <di:waypoint x="1400" y="250" />
+        <di:waypoint x="1490" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

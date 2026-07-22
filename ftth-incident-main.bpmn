@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_ftth_incident_main"
+                  targetNamespace="http://bouyguestelecom.fr/bdm"
+                  exporter="BDM 2.0 generator" exporterVersion="1.0">
+  <bpmn:message id="Msg_TicketCreated" name="ftth.ticket.created" />
+  <bpmn:message id="Msg_OutboundCampaign" name="ftth.campaign.outbound" />
+  <bpmn:process id="ftth-incident-main" name="L2 - Handle FTTH Incident (main)" isExecutable="true" camunda:versionTag="1.0.0" camunda:historyTimeToLive="180">
+    <bpmn:documentation>NIVEAU L2 - Phases. Fichier parent orchestrateur.
+3 canaux d'entree (ticket / appel entrant / campagne sortante) convergent vers un contexte normalise. Aucun element en aval ne connait le canal.
+Regle: ce fichier ne contient QUE des call activities, des passerelles de phase et des evenements. Aucune logique metier.</bpmn:documentation>
+    <bpmn:startEvent id="Start_Ticket" name="Ticket cree (ITSM)">
+      <bpmn:outgoing>F_m05</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MED_Start_Ticket" messageRef="Msg_TicketCreated" />
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Call" name="Appel entrant">
+      <bpmn:outgoing>F_m06</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Start_Outbound" name="Campagne sortante">
+      <bpmn:outgoing>F_m01</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MED_Start_Outbound" messageRef="Msg_OutboundCampaign" />
+    </bpmn:startEvent>
+    <bpmn:callActivity id="CA_Contactability" name="Verifier joignabilite" camunda:calledElementBinding="deployment" calledElement="outbound-contactability">
+      <bpmn:documentation>Uniquement sur le canal sortant : opt-out, plage d'appel, compteur de tentatives.</bpmn:documentation>
+      <bpmn:extensionElements><camunda:in source="customerId" target="customerId" /><camunda:in source="campaignId" target="campaignId" /><camunda:out source="reachable" target="reachable" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m01</bpmn:incoming>
+      <bpmn:outgoing>F_m02</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="GW_Reachable" name="Joignable ?">
+      <bpmn:incoming>F_m02</bpmn:incoming>
+      <bpmn:outgoing>F_m03</bpmn:outgoing>
+      <bpmn:outgoing>F_m04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_Unreachable" name="Non joignable / replanifie">
+      <bpmn:incoming>F_m03</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_ChannelMerge">
+      <bpmn:incoming>F_m04</bpmn:incoming>
+      <bpmn:incoming>F_m05</bpmn:incoming>
+      <bpmn:incoming>F_m06</bpmn:incoming>
+      <bpmn:outgoing>F_m07</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:callActivity id="CA_Normalize" name="Normaliser le contexte" camunda:calledElementBinding="deployment" calledElement="intake-normalize">
+      <bpmn:documentation>Adaptateur de canal. Produit toujours le meme jeu de variables : customerId, lineId, contractRef, reportedSymptom, channel, customerPresent.</bpmn:documentation>
+      <bpmn:extensionElements><camunda:in source="channel" target="channel" /><camunda:in source="ticketId" target="ticketId" /><camunda:in source="campaignId" target="campaignId" /><camunda:in source="callerNumber" target="callerNumber" /><camunda:out source="customerId" target="customerId" /><camunda:out source="lineId" target="lineId" /><camunda:out source="reportedSymptom" target="reportedSymptom" /><camunda:out source="customerPresent" target="customerPresent" /><camunda:out source="qualified" target="qualified" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m07</bpmn:incoming>
+      <bpmn:outgoing>F_m08</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="GW_Qualified" name="Qualifie ?">
+      <bpmn:incoming>F_m08</bpmn:incoming>
+      <bpmn:outgoing>F_m09</bpmn:outgoing>
+      <bpmn:outgoing>F_m10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_Redirect" name="Rejete / reoriente">
+      <bpmn:incoming>F_m09</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:callActivity id="CA_Diagnosis" name="Diagnostic" camunda:calledElementBinding="deployment" calledElement="diagnosis-ftth-connectivity">
+      <bpmn:documentation>Agnostique au canal. Ne doit jamais lire la variable 'channel'.</bpmn:documentation>
+      <bpmn:extensionElements><camunda:in source="customerId" target="customerId" /><camunda:in source="lineId" target="lineId" /><camunda:in source="reportedSymptom" target="reportedSymptom" /><camunda:in source="customerPresent" target="customerPresent" /><camunda:out source="rootCauseFound" target="rootCauseFound" /><camunda:out source="faultCategory" target="faultCategory" /><camunda:out source="diagnosisOutcome" target="diagnosisOutcome" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m10</bpmn:incoming>
+      <bpmn:outgoing>F_m11</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="GW_RootCause" name="Cause identifiee ?">
+      <bpmn:incoming>F_m11</bpmn:incoming>
+      <bpmn:outgoing>F_m12</bpmn:outgoing>
+      <bpmn:outgoing>F_m13</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:callActivity id="CA_Resolution" name="Resolution" camunda:calledElementBinding="deployment" calledElement="resolution-ftth">
+      <bpmn:extensionElements><camunda:in source="faultCategory" target="faultCategory" /><camunda:in source="lineId" target="lineId" /><camunda:out source="resolutionStatus" target="resolutionStatus" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m12</bpmn:incoming>
+      <bpmn:outgoing>F_m14</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="CA_Escalation" name="Escalade N2" camunda:calledElementBinding="deployment" calledElement="escalation-n2">
+      <bpmn:extensionElements><camunda:in source="lineId" target="lineId" /><camunda:in source="diagnosisOutcome" target="diagnosisOutcome" /><camunda:out source="resolutionStatus" target="resolutionStatus" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m13</bpmn:incoming>
+      <bpmn:outgoing>F_m15</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="GW_OutcomeMerge">
+      <bpmn:incoming>F_m14</bpmn:incoming>
+      <bpmn:incoming>F_m15</bpmn:incoming>
+      <bpmn:outgoing>F_m16</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:callActivity id="CA_Closure" name="Cloture et notification" camunda:calledElementBinding="deployment" calledElement="closure-ftth">
+      <bpmn:documentation>Le canal de cloture depend de 'channel' : ticket -&gt; update+close, appel -&gt; recap verbal + SMS, sortant -&gt; statut de campagne.</bpmn:documentation>
+      <bpmn:extensionElements><camunda:in source="channel" target="channel" /><camunda:in source="resolutionStatus" target="resolutionStatus" /><camunda:in source="ticketId" target="ticketId" /></bpmn:extensionElements>
+      <bpmn:incoming>F_m16</bpmn:incoming>
+      <bpmn:outgoing>F_m17</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="End_Done" name="Incident traite">
+      <bpmn:incoming>F_m17</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_m01" sourceRef="Start_Outbound" targetRef="CA_Contactability" />
+    <bpmn:sequenceFlow id="F_m02" sourceRef="CA_Contactability" targetRef="GW_Reachable" />
+    <bpmn:sequenceFlow id="F_m03" sourceRef="GW_Reachable" targetRef="End_Unreachable" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${reachable == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m04" sourceRef="GW_Reachable" targetRef="GW_ChannelMerge" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${reachable == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m05" sourceRef="Start_Ticket" targetRef="GW_ChannelMerge" />
+    <bpmn:sequenceFlow id="F_m06" sourceRef="Start_Call" targetRef="GW_ChannelMerge" />
+    <bpmn:sequenceFlow id="F_m07" sourceRef="GW_ChannelMerge" targetRef="CA_Normalize" />
+    <bpmn:sequenceFlow id="F_m08" sourceRef="CA_Normalize" targetRef="GW_Qualified" />
+    <bpmn:sequenceFlow id="F_m09" sourceRef="GW_Qualified" targetRef="End_Redirect" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${qualified == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m10" sourceRef="GW_Qualified" targetRef="CA_Diagnosis" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${qualified == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m11" sourceRef="CA_Diagnosis" targetRef="GW_RootCause" />
+    <bpmn:sequenceFlow id="F_m12" sourceRef="GW_RootCause" targetRef="CA_Resolution" name="oui">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${rootCauseFound == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m13" sourceRef="GW_RootCause" targetRef="CA_Escalation" name="non">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${rootCauseFound == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_m14" sourceRef="CA_Resolution" targetRef="GW_OutcomeMerge" />
+    <bpmn:sequenceFlow id="F_m15" sourceRef="CA_Escalation" targetRef="GW_OutcomeMerge" />
+    <bpmn:sequenceFlow id="F_m16" sourceRef="GW_OutcomeMerge" targetRef="CA_Closure" />
+    <bpmn:sequenceFlow id="F_m17" sourceRef="CA_Closure" targetRef="End_Done" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ftth-incident-main">
+      <bpmndi:BPMNShape id="Shape_Start_Ticket" bpmnElement="Start_Ticket">
+        <dc:Bounds x="160" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="124" y="144" width="108" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start_Call" bpmnElement="Start_Call">
+        <dc:Bounds x="160" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="139" y="274" width="78" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start_Outbound" bpmnElement="Start_Outbound">
+        <dc:Bounds x="160" y="362" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="127" y="404" width="102" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Contactability" bpmnElement="CA_Contactability">
+        <dc:Bounds x="350" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_Reachable" bpmnElement="GW_Reachable" isMarkerVisible="true">
+        <dc:Bounds x="540" y="355" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="532" y="411" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Unreachable" bpmnElement="End_Unreachable">
+        <dc:Bounds x="730" y="492" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="673" y="534" width="150" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_ChannelMerge" bpmnElement="GW_ChannelMerge" isMarkerVisible="true">
+        <dc:Bounds x="730" y="225" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Normalize" bpmnElement="CA_Normalize">
+        <dc:Bounds x="920" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_Qualified" bpmnElement="GW_Qualified" isMarkerVisible="true">
+        <dc:Bounds x="1110" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1105" y="281" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Redirect" bpmnElement="End_Redirect">
+        <dc:Bounds x="1300" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1264" y="144" width="108" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Diagnosis" bpmnElement="CA_Diagnosis">
+        <dc:Bounds x="1300" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_RootCause" bpmnElement="GW_RootCause" isMarkerVisible="true">
+        <dc:Bounds x="1490" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1461" y="281" width="108" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Resolution" bpmnElement="CA_Resolution">
+        <dc:Bounds x="1680" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Escalation" bpmnElement="CA_Escalation">
+        <dc:Bounds x="1680" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_OutcomeMerge" bpmnElement="GW_OutcomeMerge" isMarkerVisible="true">
+        <dc:Bounds x="1870" y="225" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CA_Closure" bpmnElement="CA_Closure">
+        <dc:Bounds x="2060" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Done" bpmnElement="End_Done">
+        <dc:Bounds x="2250" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2223" y="274" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_F_m01" bpmnElement="F_m01">
+        <di:waypoint x="196" y="380" />
+        <di:waypoint x="350" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m02" bpmnElement="F_m02">
+        <di:waypoint x="450" y="380" />
+        <di:waypoint x="540" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m03" bpmnElement="F_m03">
+        <di:waypoint x="590" y="380" />
+        <di:waypoint x="660" y="380" />
+        <di:waypoint x="660" y="510" />
+        <di:waypoint x="730" y="510" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="486" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m04" bpmnElement="F_m04">
+        <di:waypoint x="590" y="380" />
+        <di:waypoint x="660" y="380" />
+        <di:waypoint x="660" y="250" />
+        <di:waypoint x="730" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m05" bpmnElement="F_m05">
+        <di:waypoint x="196" y="120" />
+        <di:waypoint x="463" y="120" />
+        <di:waypoint x="463" y="250" />
+        <di:waypoint x="730" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m06" bpmnElement="F_m06">
+        <di:waypoint x="196" y="250" />
+        <di:waypoint x="730" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m07" bpmnElement="F_m07">
+        <di:waypoint x="780" y="250" />
+        <di:waypoint x="920" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m08" bpmnElement="F_m08">
+        <di:waypoint x="1020" y="250" />
+        <di:waypoint x="1110" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m09" bpmnElement="F_m09">
+        <di:waypoint x="1160" y="250" />
+        <di:waypoint x="1230" y="250" />
+        <di:waypoint x="1230" y="120" />
+        <di:waypoint x="1300" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1210" y="96" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m10" bpmnElement="F_m10">
+        <di:waypoint x="1160" y="250" />
+        <di:waypoint x="1300" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1280" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m11" bpmnElement="F_m11">
+        <di:waypoint x="1400" y="250" />
+        <di:waypoint x="1490" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m12" bpmnElement="F_m12">
+        <di:waypoint x="1540" y="250" />
+        <di:waypoint x="1680" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1660" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m13" bpmnElement="F_m13">
+        <di:waypoint x="1540" y="250" />
+        <di:waypoint x="1610" y="250" />
+        <di:waypoint x="1610" y="380" />
+        <di:waypoint x="1680" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1590" y="356" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m14" bpmnElement="F_m14">
+        <di:waypoint x="1780" y="250" />
+        <di:waypoint x="1870" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m15" bpmnElement="F_m15">
+        <di:waypoint x="1780" y="380" />
+        <di:waypoint x="1825" y="380" />
+        <di:waypoint x="1825" y="250" />
+        <di:waypoint x="1870" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m16" bpmnElement="F_m16">
+        <di:waypoint x="1920" y="250" />
+        <di:waypoint x="2060" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_m17" bpmnElement="F_m17">
+        <di:waypoint x="2160" y="250" />
+        <di:waypoint x="2250" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

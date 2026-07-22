@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_intake_normalize"
+                  targetNamespace="http://bouyguestelecom.fr/bdm"
+                  exporter="BDM 2.0 generator" exporterVersion="1.0">
+  <bpmn:error id="Err_CrmUnavailable" name="CRM indisponible" errorCode="ERR_CRM_UNAVAILABLE" />
+  <bpmn:process id="intake-normalize" name="L3 - Normaliser le contexte (adaptateur de canal)" isExecutable="true" camunda:versionTag="1.0.0" camunda:historyTimeToLive="180">
+    <bpmn:documentation>NIVEAU L3. Seul fichier de l'architecture autorise a brancher sur la variable 'channel'. Sortie contractuelle identique quel que soit le canal.</bpmn:documentation>
+    <bpmn:startEvent id="Start_Norm">
+      <bpmn:outgoing>F_n01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="GW_Channel" name="Canal ?">
+      <bpmn:incoming>F_n01</bpmn:incoming>
+      <bpmn:outgoing>F_n02</bpmn:outgoing>
+      <bpmn:outgoing>F_n03</bpmn:outgoing>
+      <bpmn:outgoing>F_n04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ST_ParseTicket" name="Lire la charge utile du ticket" camunda:type="external" camunda:topic="itsm.ticket.read" camunda:asyncBefore="true">
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+      <bpmn:incoming>F_n02</bpmn:incoming>
+      <bpmn:outgoing>F_n05</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UT_CaptureContext" name="Saisir le contexte client" camunda:formKey="embedded:app:forms/intake-call.html" camunda:candidateGroups="L1_FTTH">
+      <bpmn:documentation>KB-FTTH-0101 - Script d'accueil et qualification
+https://kb.internal/ftth/0101</bpmn:documentation>
+      <bpmn:incoming>F_n03</bpmn:incoming>
+      <bpmn:outgoing>F_n06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST_LoadCampaign" name="Charger l'enregistrement de campagne" camunda:type="external" camunda:topic="campaign.record.read" camunda:asyncBefore="true">
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+      <bpmn:incoming>F_n04</bpmn:incoming>
+      <bpmn:outgoing>F_n07</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW_NormMerge">
+      <bpmn:incoming>F_n05</bpmn:incoming>
+      <bpmn:incoming>F_n06</bpmn:incoming>
+      <bpmn:incoming>F_n07</bpmn:incoming>
+      <bpmn:outgoing>F_n08</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ST_LoadCustomer" name="Charger client et ligne" camunda:type="external" camunda:topic="crm.customer.read" camunda:asyncBefore="true" camunda:asyncAfter="true">
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+      <bpmn:incoming>F_n08</bpmn:incoming>
+      <bpmn:outgoing>F_n09</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="BE_CrmError" name="CRM KO" attachedToRef="ST_LoadCustomer" cancelActivity="true">
+      <bpmn:outgoing>F_n10</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="EED_BE_CrmError" errorRef="Err_CrmUnavailable" camunda:errorCodeVariable="errorCode" />
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="End_ContextIncomplete" name="Contexte incomplet">
+      <bpmn:incoming>F_n10</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:businessRuleTask id="BR_Qualify" name="Qualifier le symptome" camunda:decisionRef="symptom-qualification" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry" camunda:resultVariable="qualified">
+      <bpmn:incoming>F_n09</bpmn:incoming>
+      <bpmn:outgoing>F_n11</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:endEvent id="End_Normalized" name="Contexte normalise">
+      <bpmn:incoming>F_n11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_n01" sourceRef="Start_Norm" targetRef="GW_Channel" />
+    <bpmn:sequenceFlow id="F_n02" sourceRef="GW_Channel" targetRef="ST_ParseTicket" name="TICKET">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${channel == 'TICKET'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_n03" sourceRef="GW_Channel" targetRef="UT_CaptureContext" name="CALL">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${channel == 'CALL'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_n04" sourceRef="GW_Channel" targetRef="ST_LoadCampaign" name="OUTBOUND">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${channel == 'OUTBOUND'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_n05" sourceRef="ST_ParseTicket" targetRef="GW_NormMerge" />
+    <bpmn:sequenceFlow id="F_n06" sourceRef="UT_CaptureContext" targetRef="GW_NormMerge" />
+    <bpmn:sequenceFlow id="F_n07" sourceRef="ST_LoadCampaign" targetRef="GW_NormMerge" />
+    <bpmn:sequenceFlow id="F_n08" sourceRef="GW_NormMerge" targetRef="ST_LoadCustomer" />
+    <bpmn:sequenceFlow id="F_n09" sourceRef="ST_LoadCustomer" targetRef="BR_Qualify" />
+    <bpmn:sequenceFlow id="F_n10" sourceRef="BE_CrmError" targetRef="End_ContextIncomplete" />
+    <bpmn:sequenceFlow id="F_n11" sourceRef="BR_Qualify" targetRef="End_Normalized" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="intake-normalize">
+      <bpmndi:BPMNShape id="Shape_Start_Norm" bpmnElement="Start_Norm">
+        <dc:Bounds x="160" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_Channel" bpmnElement="GW_Channel" isMarkerVisible="true">
+        <dc:Bounds x="350" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="345" y="281" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ST_ParseTicket" bpmnElement="ST_ParseTicket">
+        <dc:Bounds x="540" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_UT_CaptureContext" bpmnElement="UT_CaptureContext">
+        <dc:Bounds x="540" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ST_LoadCampaign" bpmnElement="ST_LoadCampaign">
+        <dc:Bounds x="540" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW_NormMerge" bpmnElement="GW_NormMerge" isMarkerVisible="true">
+        <dc:Bounds x="730" y="225" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ST_LoadCustomer" bpmnElement="ST_LoadCustomer">
+        <dc:Bounds x="920" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_BE_CrmError" bpmnElement="BE_CrmError">
+        <dc:Bounds x="974" y="272" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="962" y="314" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_ContextIncomplete" bpmnElement="End_ContextIncomplete">
+        <dc:Bounds x="1110" y="492" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1074" y="534" width="108" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_BR_Qualify" bpmnElement="BR_Qualify">
+        <dc:Bounds x="1110" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Normalized" bpmnElement="End_Normalized">
+        <dc:Bounds x="1300" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1264" y="274" width="108" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_F_n01" bpmnElement="F_n01">
+        <di:waypoint x="196" y="250" />
+        <di:waypoint x="350" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n02" bpmnElement="F_n02">
+        <di:waypoint x="400" y="250" />
+        <di:waypoint x="470" y="250" />
+        <di:waypoint x="470" y="120" />
+        <di:waypoint x="540" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="449" y="96" width="42" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n03" bpmnElement="F_n03">
+        <di:waypoint x="400" y="250" />
+        <di:waypoint x="540" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="520" y="226" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n04" bpmnElement="F_n04">
+        <di:waypoint x="400" y="250" />
+        <di:waypoint x="470" y="250" />
+        <di:waypoint x="470" y="380" />
+        <di:waypoint x="540" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="442" y="356" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n05" bpmnElement="F_n05">
+        <di:waypoint x="640" y="120" />
+        <di:waypoint x="685" y="120" />
+        <di:waypoint x="685" y="250" />
+        <di:waypoint x="730" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n06" bpmnElement="F_n06">
+        <di:waypoint x="640" y="250" />
+        <di:waypoint x="730" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n07" bpmnElement="F_n07">
+        <di:waypoint x="640" y="380" />
+        <di:waypoint x="685" y="380" />
+        <di:waypoint x="685" y="250" />
+        <di:waypoint x="730" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n08" bpmnElement="F_n08">
+        <di:waypoint x="780" y="250" />
+        <di:waypoint x="920" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n09" bpmnElement="F_n09">
+        <di:waypoint x="1020" y="250" />
+        <di:waypoint x="1110" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n10" bpmnElement="F_n10">
+        <di:waypoint x="992" y="308" />
+        <di:waypoint x="992" y="510" />
+        <di:waypoint x="1110" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F_n11" bpmnElement="F_n11">
+        <di:waypoint x="1210" y="250" />
+        <di:waypoint x="1300" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
