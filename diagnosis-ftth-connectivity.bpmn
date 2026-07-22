@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-                  id="Definitions_diagnosis_ftth_connectivity"
-                  targetNamespace="http://bouyguestelecom.fr/bdm"
-                  exporter="BDM 2.0 generator" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_diagnosis_ftth_connectivity" targetNamespace="http://bouyguestelecom.fr/bdm" exporter="Camunda Modeler" exporterVersion="5.41.0">
   <bpmn:error id="Err_LineTechUnavailable" name="SI technique indisponible" errorCode="ERR_LINE_TECH_UNAVAILABLE" />
   <bpmn:process id="diagnosis-ftth-connectivity" name="L3 - Diagnostic connectivite FTTH" isExecutable="true" camunda:versionTag="1.0.0" camunda:historyTimeToLive="180">
     <bpmn:documentation>NIVEAU L3 - Logique de flux. Aiguillage par categorie de panne vers les sous-diagnostics. La classification est en DMN, pas en passerelles imbriquees.
@@ -15,19 +7,15 @@ Agnostique au canal : la variable 'customerPresent' porte a elle seule la differ
     <bpmn:startEvent id="Start_Diag">
       <bpmn:outgoing>F_d01</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="ST_FetchLine" name="Lire l'etat de la ligne" camunda:type="external" camunda:topic="ftth.line.status" camunda:asyncBefore="true">
-      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    <bpmn:serviceTask id="ST_FetchLine" name="Lire l&#39;etat de la ligne" camunda:asyncBefore="true" camunda:type="external" camunda:topic="ftth.line.status">
+      <bpmn:extensionElements>
+        <camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle>
+      </bpmn:extensionElements>
       <bpmn:incoming>F_d01</bpmn:incoming>
       <bpmn:outgoing>F_d02</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="BE_LineError" name="SI KO" attachedToRef="ST_FetchLine" cancelActivity="true">
-      <bpmn:outgoing>F_d03</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="EED_BE_LineError" errorRef="Err_LineTechUnavailable" camunda:errorCodeVariable="errorCode" />
-    </bpmn:boundaryEvent>
-    <bpmn:endEvent id="End_TechUnavailable" name="Diagnostic impossible (SI)">
-      <bpmn:incoming>F_d03</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:businessRuleTask id="BR_ClassifyFault" name="Classer la panne" camunda:decisionRef="ftth-fault-classification" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry" camunda:resultVariable="faultCategory">
+    <bpmn:endEvent id="End_TechUnavailable" name="Diagnostic impossible (SI)" />
+    <bpmn:businessRuleTask id="BR_ClassifyFault" name="Classer la panne" camunda:resultVariable="faultCategory" camunda:decisionRef="ftth-fault-classification" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>F_d02</bpmn:incoming>
       <bpmn:outgoing>F_d04</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -38,23 +26,39 @@ Agnostique au canal : la variable 'customerPresent' porte a elle seule la differ
       <bpmn:outgoing>F_d07</bpmn:outgoing>
       <bpmn:outgoing>F_d08</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:callActivity id="CA_Optical" name="Diagnostic optique" camunda:calledElementBinding="deployment" calledElement="diagnosis-optical">
-      <bpmn:extensionElements><camunda:in source="lineId" target="lineId" /><camunda:in source="customerPresent" target="customerPresent" /><camunda:out source="rootCauseFound" target="rootCauseFound" /></bpmn:extensionElements>
+    <bpmn:callActivity id="CA_Optical" name="Diagnostic optique" calledElement="diagnosis-optical" camunda:calledElementBinding="deployment">
+      <bpmn:extensionElements>
+        <camunda:in source="lineId" target="lineId" />
+        <camunda:in source="customerPresent" target="customerPresent" />
+        <camunda:out source="rootCauseFound" target="rootCauseFound" />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_d05</bpmn:incoming>
       <bpmn:outgoing>F_d09</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:callActivity id="CA_Ont" name="Diagnostic ONT" camunda:calledElementBinding="deployment" calledElement="diagnosis-ont">
-      <bpmn:extensionElements><camunda:in source="lineId" target="lineId" /><camunda:in source="ontSerial" target="ontSerial" /><camunda:in source="customerPresent" target="customerPresent" /><camunda:out source="rootCauseFound" target="rootCauseFound" /><camunda:out source="ontOutcome" target="ontOutcome" /></bpmn:extensionElements>
+    <bpmn:callActivity id="CA_Ont" name="Diagnostic ONT" calledElement="diagnosis-ont" camunda:calledElementBinding="deployment">
+      <bpmn:extensionElements>
+        <camunda:in source="lineId" target="lineId" />
+        <camunda:in source="ontSerial" target="ontSerial" />
+        <camunda:in source="customerPresent" target="customerPresent" />
+        <camunda:out source="rootCauseFound" target="rootCauseFound" />
+        <camunda:out source="ontOutcome" target="ontOutcome" />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_d06</bpmn:incoming>
       <bpmn:outgoing>F_d10</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:callActivity id="CA_Cpe" name="Diagnostic box / CPE" camunda:calledElementBinding="deployment" calledElement="diagnosis-cpe">
-      <bpmn:extensionElements><camunda:in source="lineId" target="lineId" /><camunda:in source="customerPresent" target="customerPresent" /><camunda:out source="rootCauseFound" target="rootCauseFound" /></bpmn:extensionElements>
+    <bpmn:callActivity id="CA_Cpe" name="Diagnostic box / CPE" calledElement="diagnosis-cpe" camunda:calledElementBinding="deployment">
+      <bpmn:extensionElements>
+        <camunda:in source="lineId" target="lineId" />
+        <camunda:in source="customerPresent" target="customerPresent" />
+        <camunda:out source="rootCauseFound" target="rootCauseFound" />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_d07</bpmn:incoming>
       <bpmn:outgoing>F_d11</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:serviceTask id="ST_CheckOutage" name="Interroger le registre des pannes" camunda:type="external" camunda:topic="network.outage.lookup" camunda:asyncBefore="true">
-      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    <bpmn:serviceTask id="ST_CheckOutage" name="Interroger le registre des pannes" camunda:asyncBefore="true" camunda:type="external" camunda:topic="network.outage.lookup">
+      <bpmn:extensionElements>
+        <camunda:failedJobRetryTimeCycle>R3/PT15S</camunda:failedJobRetryTimeCycle>
+      </bpmn:extensionElements>
       <bpmn:incoming>F_d08</bpmn:incoming>
       <bpmn:outgoing>F_d12</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -102,36 +106,35 @@ https://kb.internal/ftth/0150</bpmn:documentation>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="F_d01" sourceRef="Start_Diag" targetRef="ST_FetchLine" />
     <bpmn:sequenceFlow id="F_d02" sourceRef="ST_FetchLine" targetRef="BR_ClassifyFault" />
-    <bpmn:sequenceFlow id="F_d03" sourceRef="BE_LineError" targetRef="End_TechUnavailable" />
     <bpmn:sequenceFlow id="F_d04" sourceRef="BR_ClassifyFault" targetRef="GW_FaultCat" />
-    <bpmn:sequenceFlow id="F_d05" sourceRef="GW_FaultCat" targetRef="CA_Optical" name="OPTICAL">
+    <bpmn:sequenceFlow id="F_d05" name="OPTICAL" sourceRef="GW_FaultCat" targetRef="CA_Optical">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'OPTICAL'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d06" sourceRef="GW_FaultCat" targetRef="CA_Ont" name="ONT">
+    <bpmn:sequenceFlow id="F_d06" name="ONT" sourceRef="GW_FaultCat" targetRef="CA_Ont">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'ONT'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d07" sourceRef="GW_FaultCat" targetRef="CA_Cpe" name="ROUTER">
+    <bpmn:sequenceFlow id="F_d07" name="ROUTER" sourceRef="GW_FaultCat" targetRef="CA_Cpe">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'ROUTER'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d08" sourceRef="GW_FaultCat" targetRef="ST_CheckOutage" name="NETWORK">
+    <bpmn:sequenceFlow id="F_d08" name="NETWORK" sourceRef="GW_FaultCat" targetRef="ST_CheckOutage">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${faultCategory == 'NETWORK'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d09" sourceRef="CA_Optical" targetRef="GW_DiagMerge" />
     <bpmn:sequenceFlow id="F_d10" sourceRef="CA_Ont" targetRef="GW_DiagMerge" />
     <bpmn:sequenceFlow id="F_d11" sourceRef="CA_Cpe" targetRef="GW_DiagMerge" />
     <bpmn:sequenceFlow id="F_d12" sourceRef="ST_CheckOutage" targetRef="GW_KnownOutage" />
-    <bpmn:sequenceFlow id="F_d13" sourceRef="GW_KnownOutage" targetRef="UT_InformOutage" name="oui">
+    <bpmn:sequenceFlow id="F_d13" name="oui" sourceRef="GW_KnownOutage" targetRef="UT_InformOutage">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${knownOutage == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d14" sourceRef="GW_KnownOutage" targetRef="End_Unresolved" name="non">
+    <bpmn:sequenceFlow id="F_d14" name="non" sourceRef="GW_KnownOutage" targetRef="End_Unresolved">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${knownOutage == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d15" sourceRef="UT_InformOutage" targetRef="End_Outage" />
     <bpmn:sequenceFlow id="F_d16" sourceRef="GW_DiagMerge" targetRef="GW_CustomerPresent" />
-    <bpmn:sequenceFlow id="F_d17" sourceRef="GW_CustomerPresent" targetRef="UT_ConfirmDiag" name="oui">
+    <bpmn:sequenceFlow id="F_d17" name="oui" sourceRef="GW_CustomerPresent" targetRef="UT_ConfirmDiag">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${customerPresent == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F_d18" sourceRef="GW_CustomerPresent" targetRef="GW_DiagEnd" name="non">
+    <bpmn:sequenceFlow id="F_d18" name="non" sourceRef="GW_CustomerPresent" targetRef="GW_DiagEnd">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${customerPresent == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_d19" sourceRef="UT_ConfirmDiag" targetRef="GW_DiagEnd" />
@@ -144,12 +147,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_ST_FetchLine" bpmnElement="ST_FetchLine">
         <dc:Bounds x="350" y="210" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_BE_LineError" bpmnElement="BE_LineError">
-        <dc:Bounds x="404" y="272" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="392" y="314" width="60" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_End_TechUnavailable" bpmnElement="End_TechUnavailable">
         <dc:Bounds x="540" y="622" width="36" height="36" />
@@ -227,11 +224,6 @@ https://kb.internal/ftth/0150</bpmn:documentation>
       <bpmndi:BPMNEdge id="Edge_F_d02" bpmnElement="F_d02">
         <di:waypoint x="450" y="250" />
         <di:waypoint x="540" y="250" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_F_d03" bpmnElement="F_d03">
-        <di:waypoint x="422" y="308" />
-        <di:waypoint x="422" y="640" />
-        <di:waypoint x="540" y="640" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_F_d04" bpmnElement="F_d04">
         <di:waypoint x="640" y="250" />
