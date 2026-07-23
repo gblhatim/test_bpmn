@@ -27,7 +27,6 @@
         <bpmn2:flowNodeRef>Activity_04pgl5c</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_1gzcd7k</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>StartEvent_1</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>Task_0jsoxba</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ParallelGateway_02fgrfq</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0s82fs4</bpmn2:flowNodeRef>
       </bpmn2:lane>
@@ -71,7 +70,6 @@
       </bpmn2:extensionElements>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_0buzwss" sourceRef="InclusiveGateway_1dgb4sg" targetRef="ExclusiveGateway_1ouv9kf" />
-    <bpmn2:sequenceFlow id="SequenceFlow_0mp5byl" sourceRef="Task_0jsoxba" targetRef="InclusiveGateway_1dgb4sg" />
     <bpmn2:sequenceFlow id="Flow_04i34g8" sourceRef="Activity_0s1ktqa" targetRef="InclusiveGateway_1dgb4sg" />
     <bpmn2:sequenceFlow id="SequenceFlow_0kz5g1t" sourceRef="Task_12j0pib" targetRef="Activity_0s1ktqa" />
     <bpmn2:endEvent id="Event_042k091">
@@ -141,7 +139,7 @@ sandling?</drools:metaValue>
     </bpmn2:startEvent>
     <bpmn2:inclusiveGateway id="InclusiveGateway_1dgb4sg" gatewayDirection="Converging">
       <bpmn2:incoming>Flow_04i34g8</bpmn2:incoming>
-      <bpmn2:incoming>SequenceFlow_0mp5byl</bpmn2:incoming>
+      <bpmn2:incoming>Flow_10q6lh8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0buzwss</bpmn2:outgoing>
     </bpmn2:inclusiveGateway>
     <bpmn2:callActivity id="Activity_0s1ktqa" name="CALL ACTIVITY" calledElement="Process_18qrwmx" drools:independent="false" drools:waitForCompletion="false">
@@ -174,10 +172,6 @@ sandling?</drools:metaValue>
       <bpmn2:incoming>Flow_00v3t2a</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_00v3t2a" sourceRef="Activity_17s4mbp" targetRef="Event_1rk5upr" />
-    <bpmn2:userTask id="Task_0jsoxba" name="Write package&#10;label">
-      <bpmn2:incoming>Flow_10q6dsqdsqlh8</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_0mp5byl</bpmn2:outgoing>
-    </bpmn2:userTask>
     <bpmn2:serviceTask id="Task_12j0pib" name="Insure parcel">
       <bpmn2:outgoing>SequenceFlow_0kz5g1t</bpmn2:outgoing>
     </bpmn2:serviceTask>
@@ -237,7 +231,7 @@ sandling?</drools:metaValue>
       <bpmn2:outgoing>Flow_01664wg</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="Flow_0cen3qw" sourceRef="StartEvent_1" targetRef="Activity_0m3mw1h" />
-    <bpmn2:sequenceFlow id="Flow_10q6lh8" sourceRef="ExclusiveGateway_1mpgzhg" targetRef="Task_0jsoxba" />
+    <bpmn2:sequenceFlow id="Flow_10q6lh8" sourceRef="ExclusiveGateway_1mpgzhg" targetRef="InclusiveGateway_1dgb4sg" />
     <bpmn2:textAnnotation id="TextAnnotation_1ywrqgx" />
     <bpmn2:association id="Association_08lslvs" associationDirection="None" sourceRef="Task_0sl26uo" targetRef="TextAnnotation_1ywrqgx" />
     <bpmn2:textAnnotation id="TextAnnotation_181j5zt" />
@@ -308,9 +302,6 @@ sandling?</drools:metaValue>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1rk5upr_di" bpmnElement="Event_1rk5upr">
         <dc:Bounds x="1492" y="802" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0weklr1_di" bpmnElement="Task_0jsoxba">
-        <dc:Bounds x="681" y="335" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1fnc8ty_di" bpmnElement="Task_12j0pib">
         <dc:Bounds x="681" y="163" width="100" height="80" />
@@ -421,10 +412,6 @@ sandling?</drools:metaValue>
         <di:waypoint x="980" y="375" />
         <di:waypoint x="980" y="525" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Task_0jsoxba_to_shape_InclusiveGateway_1dgb4sg" bpmnElement="SequenceFlow_0mp5byl">
-        <di:waypoint x="781" y="375" />
-        <di:waypoint x="839" y="375" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_Activity_0s1ktqa_to_shape_InclusiveGateway_1dgb4sg" bpmnElement="Flow_04i34g8">
         <di:waypoint x="900" y="243" />
         <di:waypoint x="900" y="297" />
@@ -482,7 +469,7 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNEdge id="Flow_10q6lh8_di" bpmnElement="Flow_10q6lh8">
         <di:waypoint x="556" y="459" />
         <di:waypoint x="556" y="375" />
-        <di:waypoint x="681" y="375" />
+        <di:waypoint x="839" y="375" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_08lslvs_di" bpmnElement="Association_08lslvs">
         <di:waypoint x="1242" y="667" />
