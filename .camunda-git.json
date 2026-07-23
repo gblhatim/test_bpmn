@@ -1,0 +1,8 @@
+{
+  "branchModel": "gitflow",
+  "baseBranch": "dev",
+  "releaseBranch": "main",
+  "mergePolicy": "review",
+  "jiraHost": "",
+  "jiraProjectKey": "BDM"
+}
