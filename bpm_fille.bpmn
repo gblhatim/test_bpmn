@@ -175,7 +175,7 @@ sandling?</drools:metaValue>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_00v3t2a" sourceRef="Activity_17s4mbp" targetRef="Event_1rk5upr" />
     <bpmn2:userTask id="Task_0jsoxba" name="Write package&#10;label">
-      <bpmn2:incoming>Flow_10q6lh8</bpmn2:incoming>
+      <bpmn2:incoming>Flow_10q6dsqdsqlh8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0mp5byl</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:serviceTask id="Task_12j0pib" name="Insure parcel">
