@@ -11,7 +11,6 @@
             <drools:metaValue>Logistics</drools:metaValue>
           </drools:metaData>
         </bpmn2:extensionElements>
-        <bpmn2:flowNodeRef>Activity_0s1ktqa</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Task_12j0pib</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_1ocseyo" name="Secretary">
@@ -70,8 +69,7 @@
       </bpmn2:extensionElements>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_0buzwss" sourceRef="InclusiveGateway_1dgb4sg" targetRef="ExclusiveGateway_1ouv9kf" />
-    <bpmn2:sequenceFlow id="Flow_04i34g8" sourceRef="Activity_0s1ktqa" targetRef="InclusiveGateway_1dgb4sg" />
-    <bpmn2:sequenceFlow id="SequenceFlow_0kz5g1t" sourceRef="Task_12j0pib" targetRef="Activity_0s1ktqa" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0kz5g1t" sourceRef="Task_12j0pib" targetRef="InclusiveGateway_1dgb4sg" />
     <bpmn2:endEvent id="Event_042k091">
       <bpmn2:incoming>Flow_0tz4ikt</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -138,19 +136,10 @@ sandling?</drools:metaValue>
       <bpmn2:outgoing>Flow_0cen3qw</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:inclusiveGateway id="InclusiveGateway_1dgb4sg" gatewayDirection="Converging">
-      <bpmn2:incoming>Flow_04i34g8</bpmn2:incoming>
       <bpmn2:incoming>Flow_10q6lh8</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_0kz5g1t</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0buzwss</bpmn2:outgoing>
     </bpmn2:inclusiveGateway>
-    <bpmn2:callActivity id="Activity_0s1ktqa" name="CALL ACTIVITY" calledElement="Process_18qrwmx" drools:independent="false" drools:waitForCompletion="false">
-      <bpmn2:extensionElements>
-        <drools:metaData name="elementname">
-          <drools:metaValue>CALL ACTIVITY</drools:metaValue>
-        </drools:metaData>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>SequenceFlow_0kz5g1t</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_04i34g8</bpmn2:outgoing>
-    </bpmn2:callActivity>
     <bpmn2:scriptTask id="Activity_04pgl5c">
       <bpmn2:incoming>Flow_1lmxg9o</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1xle7i3</bpmn2:outgoing>
@@ -285,9 +274,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNShape id="shape_InclusiveGateway_1dgb4sg" bpmnElement="InclusiveGateway_1dgb4sg">
         <dc:Bounds x="836" y="350" width="56" height="56" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="shape_Activity_0s1ktqa" bpmnElement="Activity_0s1ktqa">
-        <dc:Bounds x="850" y="163" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_17mbnua_di" bpmnElement="Activity_04pgl5c">
         <dc:Bounds x="1060" y="335" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -412,15 +398,12 @@ sandling?</drools:metaValue>
         <di:waypoint x="980" y="375" />
         <di:waypoint x="980" y="525" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Activity_0s1ktqa_to_shape_InclusiveGateway_1dgb4sg" bpmnElement="Flow_04i34g8">
-        <di:waypoint x="900" y="243" />
-        <di:waypoint x="900" y="297" />
-        <di:waypoint x="861" y="297" />
-        <di:waypoint x="861" y="350" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_Task_12j0pib_to_shape_Activity_0s1ktqa" bpmnElement="SequenceFlow_0kz5g1t">
         <di:waypoint x="781" y="203" />
-        <di:waypoint x="850" y="203" />
+        <di:waypoint x="900" y="203" />
+        <di:waypoint x="900" y="297" />
+        <di:waypoint x="861" y="297" />
+        <di:waypoint x="861" y="353" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08batv4_di" bpmnElement="Flow_08batv4">
         <di:waypoint x="1254" y="707" />
