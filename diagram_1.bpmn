@@ -7,6 +7,7 @@
     <bpmn:task id="Activity_0yswz23">
       <bpmn:incoming>Flow_17jelc8</bpmn:incoming>
       <bpmn:outgoing>Flow_1hlpbkm</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ro2ijq</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_17jelc8" sourceRef="StartEvent_1" targetRef="Activity_0yswz23" />
     <bpmn:task id="Activity_0waqgr8">
@@ -16,8 +17,10 @@
     <bpmn:sequenceFlow id="Flow_1hlpbkm" sourceRef="Activity_0yswz23" targetRef="Activity_0waqgr8" />
     <bpmn:endEvent id="Event_1qtapzs">
       <bpmn:incoming>Flow_0x371hm</bpmn:incoming>
+      <bpmn:incoming>Flow_1ro2ijq</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0x371hm" sourceRef="Activity_0waqgr8" targetRef="Event_1qtapzs" />
+    <bpmn:sequenceFlow id="Flow_1ro2ijq" sourceRef="Activity_0yswz23" targetRef="Event_1qtapzs" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_00skvk1">
@@ -46,6 +49,11 @@
       <bpmndi:BPMNEdge id="Flow_0x371hm_di" bpmnElement="Flow_0x371hm">
         <di:waypoint x="370" y="260" />
         <di:waypoint x="422" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ro2ijq_di" bpmnElement="Flow_1ro2ijq">
+        <di:waypoint x="370" y="100" />
+        <di:waypoint x="440" y="100" />
+        <di:waypoint x="440" y="242" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
