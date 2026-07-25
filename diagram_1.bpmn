@@ -39,9 +39,9 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0cqzjg1" sourceRef="Gateway_0o6kx23" targetRef="Event_1r8s1rd" />
     <bpmn:sequenceFlow id="Flow_0x1y9q8" sourceRef="Gateway_0o6kx23" targetRef="Activity_1lnx2xk" />
-    <bpmn:task id="Activity_060v1ti">
-      <bpmn:incoming>Flow_16929rz</bpmn:incoming>
-      <bpmn:outgoing>Flow_15a6578</bpmn:outgoing>
+    <bpmn:task id="Activity_060v1tidsqd">
+      <bpmn:incoming>Flow_1692dsqd9rz</bpmn:incoming>
+      <bpmn:outgoing>Flow_15a6dsq578</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_16929rz" sourceRef="Gateway_1fpx805" targetRef="Activity_060v1ti" />
     <bpmn:task id="Activity_0zraeum">
@@ -74,11 +74,6 @@
       <bpmn:incoming>Flow_0kc6v61</bpmn:incoming>
       <bpmn:outgoing>Flow_0bdabng</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0gponra">
-      <bpmn:incoming>Flow_0zbmr35</bpmn:incoming>
-      <bpmn:outgoing>Flow_0kc6v61</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0pxdpek</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sendTask id="Activity_18tf4i6">
       <bpmn:incoming>Flow_0pxdpek</bpmn:incoming>
       <bpmn:incoming>Flow_10pb6vs</bpmn:incoming>
@@ -166,9 +161,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1a94imu_di" bpmnElement="Activity_1ggb971">
         <dc:Bounds x="690" y="300" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0yx5sa6_di" bpmnElement="Activity_0gponra">
-        <dc:Bounds x="530" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1kraftx_di" bpmnElement="Activity_18tf4i6">
         <dc:Bounds x="540" y="520" width="100" height="80" />
