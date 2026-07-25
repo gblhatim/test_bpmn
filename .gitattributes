@@ -1,0 +1,2 @@
+# Use custom diff filter for BPMN files to improve readability
+*.bpmn diff=bpmn

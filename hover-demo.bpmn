@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  id="Defs" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Demo" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Invoice received" />
+    <bpmn:sequenceFlow id="f0" sourceRef="Start" targetRef="Approve" />
+    <bpmn:userTask id="Approve" name="Approve invoice"
+        camunda:assignee="${manager}" camunda:candidateGroups="finance,ops"
+        camunda:dueDate="${now}" camunda:formKey="app:approveForm" camunda:priority="50">
+      <bpmn:documentation>Reviewer signs off the invoice before payment.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="amount" label="Amount" type="long" />
+          <camunda:formField id="approved" label="Approved?" type="boolean" />
+        </camunda:formData>
+        <camunda:properties>
+          <camunda:property name="slaHours" value="24" />
+          <camunda:property name="channel" value="email" />
+        </camunda:properties>
+        <camunda:taskListener event="create" class="com.acme.Notify" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="f1" sourceRef="Approve" targetRef="End" />
+    <bpmn:endEvent id="End" name="Done" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Di">
+    <bpmndi:BPMNPlane id="Plane" bpmnElement="Demo">
+      <bpmndi:BPMNShape id="s_Start" bpmnElement="Start"><dc:Bounds x="160" y="200" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_Approve" bpmnElement="Approve"><dc:Bounds x="260" y="178" width="120" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_End" bpmnElement="End"><dc:Bounds x="450" y="200" width="36" height="36" /></bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
