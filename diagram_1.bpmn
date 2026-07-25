@@ -39,9 +39,9 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0cqzjg1" sourceRef="Gateway_0o6kx23" targetRef="Event_1r8s1rd" />
     <bpmn:sequenceFlow id="Flow_0x1y9q8" sourceRef="Gateway_0o6kx23" targetRef="Activity_1lnx2xk" />
-    <bpmn:task id="Activity_060v1ti">
-      <bpmn:incoming>Flow_16929rz</bpmn:incoming>
-      <bpmn:outgoing>Flow_15a6578</bpmn:outgoing>
+    <bpmn:task id="Activity_060v1tidsqd">
+      <bpmn:incoming>Flow_1692dsqd9rz</bpmn:incoming>
+      <bpmn:outgoing>Flow_15a6dsq578</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_16929rz" sourceRef="Gateway_1fpx805" targetRef="Activity_060v1ti" />
     <bpmn:task id="Activity_0zraeum">
