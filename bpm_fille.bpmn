@@ -186,7 +186,7 @@ sandling?</drools:metaValue>
       <bpmn2:outgoing>Flow_0w6hweo</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="Flow_0w6hweo" sourceRef="ParallelGateway_02fgrfq" targetRef="Task_05ftug5">
-      <bpmn2:conditionExpression xsi_1:type="bpmn2:tFormalExpression">${condition == 'a'}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi_1:type="bpmn2:tFormalExpression">${packageType == 'standard' || packageType == 'express' || packageType == 'fragile'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:userTask id="Activity_0m3mw1h" name="ytdu">
       <bpmn2:extensionElements>
@@ -205,14 +205,36 @@ sandling?</drools:metaValue>
     <bpmn2:sequenceFlow id="Flow_0esoec4" sourceRef="Activity_0m3mw1h" targetRef="Event_0cxwzcb" />
     <bpmn2:sequenceFlow id="Flow_0cn4k5a" sourceRef="StartEvent_1" targetRef="Activity_0s82fs4" />
     <bpmn2:sequenceFlow id="Flow_01664wg" sourceRef="Activity_0s82fs4" targetRef="ParallelGateway_02fgrfq" />
-    <bpmn2:userTask id="Activity_0s82fs4" name="dsqdsq">
+    <bpmn2:userTask id="Activity_0s82fs4" name="Gather client information">
       <bpmn2:extensionElements>
         <camunda:formData>
-          <camunda:formField id="condition" label="yyyyy" type="enum">
-            <camunda:validation />
-            <camunda:value id="a" name="a" />
-            <camunda:value id="b" name="b" />
-            <camunda:value id="c" name="c" />
+          <camunda:formField id="clientName" label="Client Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientEmail" label="Email Address" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientPhone" label="Phone Number" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="shippingAddress" label="Shipping Address" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="packageType" label="Package Type" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+            <camunda:value id="standard" name="Standard" />
+            <camunda:value id="express" name="Express" />
+            <camunda:value id="fragile" name="Fragile" />
           </camunda:formField>
         </camunda:formData>
       </bpmn2:extensionElements>
