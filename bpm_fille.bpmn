@@ -44,7 +44,6 @@
         <bpmn2:flowNodeRef>Activity_17s4mbp</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Event_1wd7nn7</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0w2t8kk</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>Task_05ftug5</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Activity_0m3mw1h</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>Event_0cxwzcb</bpmn2:flowNodeRef>
       </bpmn2:lane>
@@ -54,7 +53,6 @@
     <bpmn2:sequenceFlow id="SequenceFlow_0v64x8b" sourceRef="Task_0sl26uo" targetRef="EndEvent_1fx9yp3" />
     <bpmn2:sequenceFlow id="SequenceFlow_06kfaev" sourceRef="ExclusiveGateway_0z5sib0" targetRef="Task_0sl26uo" />
     <bpmn2:sequenceFlow id="Flow_0g1x3hz" sourceRef="Gateway_057hfxd" targetRef="ExclusiveGateway_0z5sib0" />
-    <bpmn2:sequenceFlow id="Flow_08g6dtz" sourceRef="Task_05ftug5" targetRef="Gateway_057hfxd" />
     <bpmn2:sequenceFlow id="Flow_1awrh6t" sourceRef="ExclusiveGateway_1ouv9kf" targetRef="Activity_0w2t8kk" />
     <bpmn2:sequenceFlow id="Flow_0p305pb" sourceRef="ExclusiveGateway_1ouv9kf" targetRef="Activity_0f9vi9s" />
     <bpmn2:sequenceFlow id="SequenceFlow_035vf60" sourceRef="ExclusiveGateway_1ouv9kf" targetRef="ExclusiveGateway_0z5sib0" />
@@ -74,7 +72,7 @@
       <bpmn2:incoming>Flow_0tz4ikt</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:exclusiveGateway id="Gateway_057hfxd" gatewayDirection="Diverging">
-      <bpmn2:incoming>Flow_08g6dtz</bpmn2:incoming>
+      <bpmn2:incoming>Flow_0w6hweo</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0g1x3hz</bpmn2:outgoing>
       <bpmn2:outgoing>Flow_0y3wmli</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
@@ -177,16 +175,12 @@ sandling?</drools:metaValue>
       <bpmn2:incoming>Flow_15stg97</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_15stg97" sourceRef="Activity_1gzcd7k" targetRef="Event_0ssw0hd" />
-    <bpmn2:userTask id="Task_05ftug5" name="Package goods">
-      <bpmn2:incoming>Flow_0w6hweo</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_08g6dtz</bpmn2:outgoing>
-    </bpmn2:userTask>
     <bpmn2:exclusiveGateway id="ParallelGateway_02fgrfq">
       <bpmn2:incoming>Flow_01664wg</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0w6hweo</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="Flow_0w6hweo" sourceRef="ParallelGateway_02fgrfq" targetRef="Task_05ftug5">
-      <bpmn2:conditionExpression xsi_1:type="bpmn2:tFormalExpression">${condition == 'a'}</bpmn2:conditionExpression>
+    <bpmn2:sequenceFlow id="Flow_0w6hweo" sourceRef="ParallelGateway_02fgrfq" targetRef="Gateway_057hfxd">
+      <bpmn2:conditionExpression xsi_1:type="bpmn2:tFormalExpression">${packageType == 'standard' || packageType == 'express' || packageType == 'fragile'}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:userTask id="Activity_0m3mw1h" name="ytdu">
       <bpmn2:extensionElements>
@@ -205,14 +199,36 @@ sandling?</drools:metaValue>
     <bpmn2:sequenceFlow id="Flow_0esoec4" sourceRef="Activity_0m3mw1h" targetRef="Event_0cxwzcb" />
     <bpmn2:sequenceFlow id="Flow_0cn4k5a" sourceRef="StartEvent_1" targetRef="Activity_0s82fs4" />
     <bpmn2:sequenceFlow id="Flow_01664wg" sourceRef="Activity_0s82fs4" targetRef="ParallelGateway_02fgrfq" />
-    <bpmn2:userTask id="Activity_0s82fs4" name="dsqdsq">
+    <bpmn2:userTask id="Activity_0s82fs4" name="Gather client information">
       <bpmn2:extensionElements>
         <camunda:formData>
-          <camunda:formField id="condition" label="yyyyy" type="enum">
-            <camunda:validation />
-            <camunda:value id="a" name="a" />
-            <camunda:value id="b" name="b" />
-            <camunda:value id="c" name="c" />
+          <camunda:formField id="clientName" label="Client Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientEmail" label="Email Address" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientPhone" label="Phone Number" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="shippingAddress" label="Shipping Address" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="packageType" label="Package Type" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+            <camunda:value id="standard" name="Standard" />
+            <camunda:value id="express" name="Express" />
+            <camunda:value id="fragile" name="Fragile" />
           </camunda:formField>
         </camunda:formData>
       </bpmn2:extensionElements>
@@ -301,9 +317,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNShape id="Event_0ssw0hd_di" bpmnElement="Event_0ssw0hd">
         <dc:Bounds x="1612" y="432" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0fg7f2i_di" bpmnElement="Task_05ftug5">
-        <dc:Bounds x="390" y="667" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_08efy9m_di" bpmnElement="ParallelGateway_02fgrfq" isMarkerVisible="true">
         <dc:Bounds x="307" y="459" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -347,10 +360,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNEdge id="edge_shape_Gateway_057hfxd_to_shape_ExclusiveGateway_0z5sib0" bpmnElement="Flow_0g1x3hz">
         <di:waypoint x="575" y="707" />
         <di:waypoint x="1053" y="707" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Task_05ftug5_to_shape_Gateway_057hfxd" bpmnElement="Flow_08g6dtz">
-        <di:waypoint x="490" y="707" />
-        <di:waypoint x="528" y="707" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_ExclusiveGateway_1ouv9kf_to_shape_Activity_0w2t8kk" bpmnElement="Flow_1awrh6t">
         <di:waypoint x="980" y="578" />
@@ -426,7 +435,7 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNEdge id="Flow_0w6hweo_di" bpmnElement="Flow_0w6hweo">
         <di:waypoint x="332" y="509" />
         <di:waypoint x="332" y="707" />
-        <di:waypoint x="390" y="707" />
+        <di:waypoint x="528" y="707" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0esoec4_di" bpmnElement="Flow_0esoec4">
         <di:waypoint x="490" y="600" />
