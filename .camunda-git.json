@@ -4,5 +4,10 @@
   "releaseBranch": "prod",
   "mergePolicy": "review",
   "jiraHost": "",
-  "jiraProjectKey": "BDM"
+  "jiraProjectKey": "BDM",
+  "enabledTabs": [
+    "git-my-work",
+    "git-team",
+    "git-settings"
+  ]
 }
