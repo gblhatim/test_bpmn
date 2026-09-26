@@ -8,6 +8,8 @@
   "enabledTabs": [
     "git-my-work",
     "git-team",
+    "git-ai",
+    "git-activity",
     "git-settings"
   ]
 }
