@@ -2504,8 +2504,6 @@
         <bpmn:flowNodeRef>Task_2497</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2498</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_2499</bpmn:flowNodeRef>
-      </bpmn:lane>
-      <bpmn:lane id="Lane_B" name="Back office">
         <bpmn:flowNodeRef>Task_2500</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2501</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2502</bpmn:flowNodeRef>
@@ -2521,6 +2519,8 @@
         <bpmn:flowNodeRef>Task_2512</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2513</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2514</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_B" name="Back office">
         <bpmn:flowNodeRef>Task_2515</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_2516</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_2517</bpmn:flowNodeRef>
@@ -5006,6 +5006,36 @@
         <bpmn:flowNodeRef>Task_4997</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_4998</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>End_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_10</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_11</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_13</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_15</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_17</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_18</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_19</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_20</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_21</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_22</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_23</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_24</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_25</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_26</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_27</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_28</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mine_29</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="Start_1" name="Start">
@@ -5025,7 +5055,7 @@
       <bpmn:incoming>Flow_0</bpmn:incoming>
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_2" name="Step 2 - handle case 2">
+    <bpmn:scriptTask id="Task_2" name="Step 2 - handle case 2 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5076,7 +5106,7 @@
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_7" name="Step 7 - handle case 7">
+    <bpmn:scriptTask id="Task_7" name="Step 7 - handle case 7 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5137,7 +5167,7 @@
       <bpmn:incoming>Flow_10</bpmn:incoming>
       <bpmn:outgoing>Flow_11</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_12" name="Step 12 - handle case 12">
+    <bpmn:scriptTask id="Task_12" name="Step 12 - handle case 12 (reviewed)">
       <bpmn:incoming>Flow_11</bpmn:incoming>
       <bpmn:outgoing>Flow_12</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5231,7 +5261,7 @@
       <bpmn:incoming>Flow_20</bpmn:incoming>
       <bpmn:outgoing>Flow_21</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_22" name="Step 22 - handle case 22">
+    <bpmn:scriptTask id="Task_22" name="Step 22 - handle case 22 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5291,7 +5321,7 @@
       <bpmn:incoming>Flow_25</bpmn:incoming>
       <bpmn:outgoing>Flow_26</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_27" name="Step 27 - handle case 27">
+    <bpmn:scriptTask id="Task_27" name="Step 27 - handle case 27 (reviewed)">
       <bpmn:incoming>Flow_26</bpmn:incoming>
       <bpmn:outgoing>Flow_27</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5342,7 +5372,7 @@
       <bpmn:incoming>Flow_30</bpmn:incoming>
       <bpmn:outgoing>Flow_31</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_32" name="Step 32 - handle case 32">
+    <bpmn:scriptTask id="Task_32" name="Step 32 - handle case 32 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5383,7 +5413,7 @@
       <bpmn:incoming>Flow_35</bpmn:incoming>
       <bpmn:outgoing>Flow_36</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_37" name="Step 37 - handle case 37">
+    <bpmn:scriptTask id="Task_37" name="Step 37 - handle case 37 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5444,7 +5474,7 @@
       <bpmn:incoming>Flow_40</bpmn:incoming>
       <bpmn:outgoing>Flow_41</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_42" name="Step 42 - handle case 42">
+    <bpmn:scriptTask id="Task_42" name="Step 42 - handle case 42 (reviewed)">
       <bpmn:incoming>Flow_41</bpmn:incoming>
       <bpmn:outgoing>Flow_42</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5495,7 +5525,7 @@
       <bpmn:incoming>Flow_45</bpmn:incoming>
       <bpmn:outgoing>Flow_46</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_47" name="Step 47 - handle case 47">
+    <bpmn:scriptTask id="Task_47" name="Step 47 - handle case 47 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5545,7 +5575,7 @@
       <bpmn:incoming>Flow_50</bpmn:incoming>
       <bpmn:outgoing>Flow_51</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:scriptTask id="Task_52" name="Step 52 - handle case 52">
+    <bpmn:scriptTask id="Task_52" name="Step 52 - handle case 52 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5607,7 +5637,7 @@
       <bpmn:incoming>Flow_55</bpmn:incoming>
       <bpmn:outgoing>Flow_56</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_57" name="Step 57 - handle case 57">
+    <bpmn:scriptTask id="Task_57" name="Step 57 - handle case 57 (reviewed)">
       <bpmn:incoming>Flow_56</bpmn:incoming>
       <bpmn:outgoing>Flow_57</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5657,7 +5687,7 @@
       <bpmn:incoming>Flow_60</bpmn:incoming>
       <bpmn:outgoing>Flow_61</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_62" name="Step 62 - handle case 62">
+    <bpmn:scriptTask id="Task_62" name="Step 62 - handle case 62 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5708,7 +5738,7 @@
       <bpmn:incoming>Flow_65</bpmn:incoming>
       <bpmn:outgoing>Flow_66</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_67" name="Step 67 - handle case 67">
+    <bpmn:scriptTask id="Task_67" name="Step 67 - handle case 67 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5758,7 +5788,7 @@
       <bpmn:incoming>Flow_70</bpmn:incoming>
       <bpmn:outgoing>Flow_71</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_72" name="Step 72 - handle case 72">
+    <bpmn:scriptTask id="Task_72" name="Step 72 - handle case 72 (reviewed)">
       <bpmn:incoming>Flow_71</bpmn:incoming>
       <bpmn:outgoing>Flow_72</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5809,7 +5839,7 @@
       <bpmn:incoming>Flow_75</bpmn:incoming>
       <bpmn:outgoing>Flow_76</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_77" name="Step 77 - handle case 77">
+    <bpmn:scriptTask id="Task_77" name="Step 77 - handle case 77 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5860,7 +5890,7 @@
       <bpmn:incoming>Flow_80</bpmn:incoming>
       <bpmn:outgoing>Flow_81</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_82" name="Step 82 - handle case 82">
+    <bpmn:scriptTask id="Task_82" name="Step 82 - handle case 82 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -5910,7 +5940,7 @@
       <bpmn:incoming>Flow_85</bpmn:incoming>
       <bpmn:outgoing>Flow_86</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_87" name="Step 87 - handle case 87">
+    <bpmn:scriptTask id="Task_87" name="Step 87 - handle case 87 (reviewed)">
       <bpmn:incoming>Flow_86</bpmn:incoming>
       <bpmn:outgoing>Flow_87</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -5961,7 +5991,7 @@
       <bpmn:incoming>Flow_90</bpmn:incoming>
       <bpmn:outgoing>Flow_91</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_92" name="Step 92 - handle case 92">
+    <bpmn:scriptTask id="Task_92" name="Step 92 - handle case 92 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6012,7 +6042,7 @@
       <bpmn:incoming>Flow_95</bpmn:incoming>
       <bpmn:outgoing>Flow_96</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_97" name="Step 97 - handle case 0">
+    <bpmn:scriptTask id="Task_97" name="Step 97 - handle case 0 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6124,7 +6154,7 @@
       <bpmn:incoming>Flow_105</bpmn:incoming>
       <bpmn:outgoing>Flow_106</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_107" name="Step 107 - handle case 10">
+    <bpmn:scriptTask id="Task_107" name="Step 107 - handle case 10 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6174,7 +6204,7 @@
       <bpmn:incoming>Flow_110</bpmn:incoming>
       <bpmn:outgoing>Flow_111</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_112" name="Step 112 - handle case 15">
+    <bpmn:scriptTask id="Task_112" name="Step 112 - handle case 15 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6236,7 +6266,7 @@
       <bpmn:incoming>Flow_115</bpmn:incoming>
       <bpmn:outgoing>Flow_116</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_117" name="Step 117 - handle case 20">
+    <bpmn:scriptTask id="Task_117" name="Step 117 - handle case 20 (reviewed)">
       <bpmn:incoming>Flow_116</bpmn:incoming>
       <bpmn:outgoing>Flow_117</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -6276,7 +6306,7 @@
       <bpmn:incoming>Flow_120</bpmn:incoming>
       <bpmn:outgoing>Flow_121</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_122" name="Step 122 - handle case 25">
+    <bpmn:scriptTask id="Task_122" name="Step 122 - handle case 25 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6327,7 +6357,7 @@
       <bpmn:incoming>Flow_125</bpmn:incoming>
       <bpmn:outgoing>Flow_126</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_127" name="Step 127 - handle case 30">
+    <bpmn:scriptTask id="Task_127" name="Step 127 - handle case 30 (reviewed)">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -6388,7 +6418,7 @@
       <bpmn:incoming>Flow_130</bpmn:incoming>
       <bpmn:outgoing>Flow_131</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_132" name="Step 132 - handle case 35">
+    <bpmn:scriptTask id="Task_132" name="Step 132 - handle case 35 (reviewed)">
       <bpmn:incoming>Flow_131</bpmn:incoming>
       <bpmn:outgoing>Flow_132</bpmn:outgoing>
     </bpmn:scriptTask>
@@ -7122,6 +7152,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_201</bpmn:incoming>
       <bpmn:outgoing>Flow_202</bpmn:outgoing>
+      <bpmn:outgoing>MineF_0</bpmn:outgoing>
     </bpmn:scriptTask>
     <bpmn:businessRuleTask id="Task_203" name="Step 203 - handle case 9">
       <bpmn:extensionElements>
@@ -8349,7 +8380,7 @@
       <bpmn:incoming>Flow_318</bpmn:incoming>
       <bpmn:outgoing>Flow_319</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_320" name="Step 320 - handle case 29" camunda:delegateExpression="${adapter21}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_320" name="Step 320 - handle case 29" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8390,7 +8421,7 @@
       <bpmn:incoming>Flow_323</bpmn:incoming>
       <bpmn:outgoing>Flow_324</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_325" name="Step 325 - handle case 34" camunda:delegateExpression="${adapter3}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_325" name="Step 325 - handle case 34" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8502,7 +8533,7 @@
       <bpmn:incoming>Flow_333</bpmn:incoming>
       <bpmn:outgoing>Flow_334</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_335" name="Step 335 - handle case 44" camunda:delegateExpression="${adapter13}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_335" name="Step 335 - handle case 44" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8653,7 +8684,7 @@
       <bpmn:incoming>Flow_348</bpmn:incoming>
       <bpmn:outgoing>Flow_349</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_350" name="Step 350 - handle case 59" camunda:delegateExpression="${adapter5}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_350" name="Step 350 - handle case 59" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8704,7 +8735,7 @@
       <bpmn:incoming>Flow_353</bpmn:incoming>
       <bpmn:outgoing>Flow_354</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_355" name="Step 355 - handle case 64" camunda:delegateExpression="${adapter10}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_355" name="Step 355 - handle case 64" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8816,7 +8847,7 @@
       <bpmn:incoming>Flow_363</bpmn:incoming>
       <bpmn:outgoing>Flow_364</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_365" name="Step 365 - handle case 74" camunda:delegateExpression="${adapter20}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_365" name="Step 365 - handle case 74" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8867,7 +8898,7 @@
       <bpmn:incoming>Flow_368</bpmn:incoming>
       <bpmn:outgoing>Flow_369</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_370" name="Step 370 - handle case 79" camunda:delegateExpression="${adapter2}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_370" name="Step 370 - handle case 79" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -8968,7 +8999,7 @@
       <bpmn:incoming>Flow_378</bpmn:incoming>
       <bpmn:outgoing>Flow_379</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_380" name="Step 380 - handle case 89" camunda:delegateExpression="${adapter12}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_380" name="Step 380 - handle case 89" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9019,7 +9050,7 @@
       <bpmn:incoming>Flow_383</bpmn:incoming>
       <bpmn:outgoing>Flow_384</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_385" name="Step 385 - handle case 94" camunda:delegateExpression="${adapter17}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_385" name="Step 385 - handle case 94" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9121,7 +9152,7 @@
       <bpmn:incoming>Flow_393</bpmn:incoming>
       <bpmn:outgoing>Flow_394</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_395" name="Step 395 - handle case 7" camunda:delegateExpression="${adapter4}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_395" name="Step 395 - handle case 7" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9171,7 +9202,7 @@
       <bpmn:incoming>Flow_398</bpmn:incoming>
       <bpmn:outgoing>Flow_399</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_400" name="Step 400 - handle case 12" camunda:delegateExpression="${adapter9}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_400" name="Step 400 - handle case 12" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9283,7 +9314,7 @@
       <bpmn:incoming>Flow_408</bpmn:incoming>
       <bpmn:outgoing>Flow_409</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_410" name="Step 410 - handle case 22" camunda:delegateExpression="${adapter19}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_410" name="Step 410 - handle case 22" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9334,7 +9365,7 @@
       <bpmn:incoming>Flow_413</bpmn:incoming>
       <bpmn:outgoing>Flow_414</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_415" name="Step 415 - handle case 27" camunda:delegateExpression="${adapter1}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_415" name="Step 415 - handle case 27" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9487,7 +9518,7 @@
       <bpmn:incoming>Flow_428</bpmn:incoming>
       <bpmn:outgoing>Flow_429</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_430" name="Step 430 - handle case 42" camunda:delegateExpression="${adapter16}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_430" name="Step 430 - handle case 42" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9598,7 +9629,7 @@
       <bpmn:incoming>Flow_438</bpmn:incoming>
       <bpmn:outgoing>Flow_439</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_440" name="Step 440 - handle case 52" camunda:delegateExpression="${adapter3}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_440" name="Step 440 - handle case 52" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9639,7 +9670,7 @@
       <bpmn:incoming>Flow_443</bpmn:incoming>
       <bpmn:outgoing>Flow_444</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_445" name="Step 445 - handle case 57" camunda:delegateExpression="${adapter8}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_445" name="Step 445 - handle case 57" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9751,7 +9782,7 @@
       <bpmn:incoming>Flow_453</bpmn:incoming>
       <bpmn:outgoing>Flow_454</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_455" name="Step 455 - handle case 67" camunda:delegateExpression="${adapter18}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_455" name="Step 455 - handle case 67" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9801,7 +9832,7 @@
       <bpmn:incoming>Flow_458</bpmn:incoming>
       <bpmn:outgoing>Flow_459</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_460" name="Step 460 - handle case 72" camunda:delegateExpression="${adapter0}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_460" name="Step 460 - handle case 72" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9913,7 +9944,7 @@
       <bpmn:incoming>Flow_468</bpmn:incoming>
       <bpmn:outgoing>Flow_469</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_470" name="Step 470 - handle case 82" camunda:delegateExpression="${adapter10}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_470" name="Step 470 - handle case 82" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -9964,7 +9995,7 @@
       <bpmn:incoming>Flow_473</bpmn:incoming>
       <bpmn:outgoing>Flow_474</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_475" name="Step 475 - handle case 87" camunda:delegateExpression="${adapter15}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_475" name="Step 475 - handle case 87" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10065,7 +10096,7 @@
       <bpmn:incoming>Flow_483</bpmn:incoming>
       <bpmn:outgoing>Flow_484</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_485" name="Step 485 - handle case 0" camunda:delegateExpression="${adapter2}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_485" name="Step 485 - handle case 0" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10116,7 +10147,7 @@
       <bpmn:incoming>Flow_488</bpmn:incoming>
       <bpmn:outgoing>Flow_489</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_490" name="Step 490 - handle case 5" camunda:delegateExpression="${adapter7}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_490" name="Step 490 - handle case 5" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10217,7 +10248,7 @@
       <bpmn:incoming>Flow_498</bpmn:incoming>
       <bpmn:outgoing>Flow_499</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_500" name="Step 500 - handle case 15" camunda:delegateExpression="${adapter17}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_500" name="Step 500 - handle case 15" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10268,7 +10299,7 @@
       <bpmn:incoming>Flow_503</bpmn:incoming>
       <bpmn:outgoing>Flow_504</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_505" name="Step 505 - handle case 20" camunda:delegateExpression="${adapter22}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_505" name="Step 505 - handle case 20" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10380,7 +10411,7 @@
       <bpmn:incoming>Flow_513</bpmn:incoming>
       <bpmn:outgoing>Flow_514</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_515" name="Step 515 - handle case 30" camunda:delegateExpression="${adapter9}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_515" name="Step 515 - handle case 30" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10430,7 +10461,7 @@
       <bpmn:incoming>Flow_518</bpmn:incoming>
       <bpmn:outgoing>Flow_519</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_520" name="Step 520 - handle case 35" camunda:delegateExpression="${adapter14}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_520" name="Step 520 - handle case 35" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10532,7 +10563,7 @@
       <bpmn:incoming>Flow_528</bpmn:incoming>
       <bpmn:outgoing>Flow_529</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_530" name="Step 530 - handle case 45" camunda:delegateExpression="${adapter1}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_530" name="Step 530 - handle case 45" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10583,7 +10614,7 @@
       <bpmn:incoming>Flow_533</bpmn:incoming>
       <bpmn:outgoing>Flow_534</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_535" name="Step 535 - handle case 50" camunda:delegateExpression="${adapter6}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_535" name="Step 535 - handle case 50" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10684,7 +10715,7 @@
       <bpmn:incoming>Flow_543</bpmn:incoming>
       <bpmn:outgoing>Flow_544</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_545" name="Step 545 - handle case 60" camunda:delegateExpression="${adapter16}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_545" name="Step 545 - handle case 60" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10735,7 +10766,7 @@
       <bpmn:incoming>Flow_548</bpmn:incoming>
       <bpmn:outgoing>Flow_549</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_550" name="Step 550 - handle case 65" camunda:delegateExpression="${adapter21}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_550" name="Step 550 - handle case 65" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10846,7 +10877,7 @@
       <bpmn:incoming>Flow_558</bpmn:incoming>
       <bpmn:outgoing>Flow_559</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_560" name="Step 560 - handle case 75" camunda:delegateExpression="${adapter8}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_560" name="Step 560 - handle case 75" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -10897,7 +10928,7 @@
       <bpmn:incoming>Flow_563</bpmn:incoming>
       <bpmn:outgoing>Flow_564</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_565" name="Step 565 - handle case 80" camunda:delegateExpression="${adapter13}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_565" name="Step 565 - handle case 80" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11009,7 +11040,7 @@
       <bpmn:incoming>Flow_573</bpmn:incoming>
       <bpmn:outgoing>Flow_574</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_575" name="Step 575 - handle case 90" camunda:delegateExpression="${adapter0}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_575" name="Step 575 - handle case 90" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11049,7 +11080,7 @@
       <bpmn:incoming>Flow_578</bpmn:incoming>
       <bpmn:outgoing>Flow_579</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_580" name="Step 580 - handle case 95" camunda:delegateExpression="${adapter5}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_580" name="Step 580 - handle case 95" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11161,7 +11192,7 @@
       <bpmn:incoming>Flow_588</bpmn:incoming>
       <bpmn:outgoing>Flow_589</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_590" name="Step 590 - handle case 8" camunda:delegateExpression="${adapter15}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_590" name="Step 590 - handle case 8" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11314,7 +11345,7 @@
       <bpmn:incoming>Flow_603</bpmn:incoming>
       <bpmn:outgoing>Flow_604</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_605" name="Step 605 - handle case 23" camunda:delegateExpression="${adapter7}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_605" name="Step 605 - handle case 23" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11365,7 +11396,7 @@
       <bpmn:incoming>Flow_608</bpmn:incoming>
       <bpmn:outgoing>Flow_609</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_610" name="Step 610 - handle case 28" camunda:delegateExpression="${adapter12}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_610" name="Step 610 - handle case 28" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11476,7 +11507,7 @@
       <bpmn:incoming>Flow_618</bpmn:incoming>
       <bpmn:outgoing>Flow_619</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_620" name="Step 620 - handle case 38" camunda:delegateExpression="${adapter22}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_620" name="Step 620 - handle case 38" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11527,7 +11558,7 @@
       <bpmn:incoming>Flow_623</bpmn:incoming>
       <bpmn:outgoing>Flow_624</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_625" name="Step 625 - handle case 43" camunda:delegateExpression="${adapter4}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_625" name="Step 625 - handle case 43" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11629,7 +11660,7 @@
       <bpmn:incoming>Flow_633</bpmn:incoming>
       <bpmn:outgoing>Flow_634</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_635" name="Step 635 - handle case 53" camunda:delegateExpression="${adapter14}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_635" name="Step 635 - handle case 53" camunda:delegateExpression="${pricingAdapterV2}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -11683,7 +11714,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">140</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT1H" />
@@ -11785,7 +11816,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">100</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT3H" />
@@ -11836,7 +11867,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">105</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT8H" />
@@ -11948,7 +11979,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">115</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT2H" />
@@ -11999,7 +12030,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">120</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT7H" />
@@ -12150,7 +12181,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">135</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT6H" />
@@ -12262,7 +12293,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">145</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT8H" />
@@ -12302,7 +12333,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">100</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT5H" />
@@ -12414,7 +12445,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">110</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT7H" />
@@ -12465,7 +12496,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">115</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT4H" />
@@ -12577,7 +12608,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">125</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT6H" />
@@ -12628,7 +12659,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">130</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT3H" />
@@ -12729,7 +12760,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">140</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT5H" />
@@ -12780,7 +12811,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">145</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT2H" />
@@ -12881,7 +12912,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">105</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT4H" />
@@ -12931,7 +12962,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">110</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT1H" />
@@ -13043,7 +13074,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">120</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT3H" />
@@ -13094,7 +13125,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">125</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT8H" />
@@ -13196,7 +13227,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">135</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT2H" />
@@ -13247,7 +13278,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">140</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT7H" />
@@ -13348,7 +13379,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">100</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT1H" />
@@ -13399,7 +13430,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">105</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT6H" />
@@ -13511,7 +13542,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">115</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT8H" />
@@ -13561,7 +13592,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">120</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT5H" />
@@ -13673,7 +13704,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">130</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT7H" />
@@ -13714,7 +13745,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">135</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT4H" />
@@ -13826,7 +13857,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">145</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT6H" />
@@ -13978,7 +14009,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">110</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT5H" />
@@ -14029,7 +14060,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">115</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT2H" />
@@ -14141,7 +14172,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
-          <camunda:inputParameter name="limit">125</camunda:inputParameter>
+          <camunda:inputParameter name="limit">9999</camunda:inputParameter>
         </camunda:inputOutput>
         <camunda:properties>
           <camunda:property name="sla" value="PT4H" />
@@ -57152,6 +57183,365 @@
     <bpmn:endEvent id="End_1" name="Done">
       <bpmn:incoming>Flow_4998</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="Mine_0" name="Loyalty points 1" camunda:delegateExpression="${mineStep0}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_0</bpmn:incoming>
+      <bpmn:outgoing>MineF_1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_1" name="Loyalty points 2" camunda:delegateExpression="${mineStep1}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_1</bpmn:incoming>
+      <bpmn:outgoing>MineF_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_2" name="Loyalty points 3" camunda:delegateExpression="${mineStep2}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_2</bpmn:incoming>
+      <bpmn:outgoing>MineF_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_3" name="Loyalty points 4" camunda:delegateExpression="${mineStep3}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_3</bpmn:incoming>
+      <bpmn:outgoing>MineF_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_4" name="Loyalty points 5" camunda:delegateExpression="${mineStep4}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_4</bpmn:incoming>
+      <bpmn:outgoing>MineF_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_5" name="Loyalty points 6" camunda:delegateExpression="${mineStep5}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_5</bpmn:incoming>
+      <bpmn:outgoing>MineF_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_6" name="Loyalty points 7" camunda:delegateExpression="${mineStep6}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_6</bpmn:incoming>
+      <bpmn:outgoing>MineF_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_7" name="Loyalty points 8" camunda:delegateExpression="${mineStep7}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_7</bpmn:incoming>
+      <bpmn:outgoing>MineF_8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_8" name="Loyalty points 9" camunda:delegateExpression="${mineStep8}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_8</bpmn:incoming>
+      <bpmn:outgoing>MineF_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_9" name="Loyalty points 10" camunda:delegateExpression="${mineStep9}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_9</bpmn:incoming>
+      <bpmn:outgoing>MineF_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_10" name="Loyalty points 11" camunda:delegateExpression="${mineStep10}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_10</bpmn:incoming>
+      <bpmn:outgoing>MineF_11</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_11" name="Loyalty points 12" camunda:delegateExpression="${mineStep11}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_11</bpmn:incoming>
+      <bpmn:outgoing>MineF_12</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_12" name="Loyalty points 13" camunda:delegateExpression="${mineStep12}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_12</bpmn:incoming>
+      <bpmn:outgoing>MineF_13</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_13" name="Loyalty points 14" camunda:delegateExpression="${mineStep13}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_13</bpmn:incoming>
+      <bpmn:outgoing>MineF_14</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_14" name="Loyalty points 15" camunda:delegateExpression="${mineStep14}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_14</bpmn:incoming>
+      <bpmn:outgoing>MineF_15</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_15" name="Loyalty points 16" camunda:delegateExpression="${mineStep15}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_15</bpmn:incoming>
+      <bpmn:outgoing>MineF_16</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_16" name="Loyalty points 17" camunda:delegateExpression="${mineStep16}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_16</bpmn:incoming>
+      <bpmn:outgoing>MineF_17</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_17" name="Loyalty points 18" camunda:delegateExpression="${mineStep17}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_17</bpmn:incoming>
+      <bpmn:outgoing>MineF_18</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_18" name="Loyalty points 19" camunda:delegateExpression="${mineStep18}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_18</bpmn:incoming>
+      <bpmn:outgoing>MineF_19</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_19" name="Loyalty points 20" camunda:delegateExpression="${mineStep19}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_19</bpmn:incoming>
+      <bpmn:outgoing>MineF_20</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_20" name="Loyalty points 21" camunda:delegateExpression="${mineStep20}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_20</bpmn:incoming>
+      <bpmn:outgoing>MineF_21</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_21" name="Loyalty points 22" camunda:delegateExpression="${mineStep21}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_21</bpmn:incoming>
+      <bpmn:outgoing>MineF_22</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_22" name="Loyalty points 23" camunda:delegateExpression="${mineStep22}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_22</bpmn:incoming>
+      <bpmn:outgoing>MineF_23</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_23" name="Loyalty points 24" camunda:delegateExpression="${mineStep23}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_23</bpmn:incoming>
+      <bpmn:outgoing>MineF_24</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_24" name="Loyalty points 25" camunda:delegateExpression="${mineStep24}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_24</bpmn:incoming>
+      <bpmn:outgoing>MineF_25</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_25" name="Loyalty points 26" camunda:delegateExpression="${mineStep25}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_25</bpmn:incoming>
+      <bpmn:outgoing>MineF_26</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_26" name="Loyalty points 27" camunda:delegateExpression="${mineStep26}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_26</bpmn:incoming>
+      <bpmn:outgoing>MineF_27</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_27" name="Loyalty points 28" camunda:delegateExpression="${mineStep27}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_27</bpmn:incoming>
+      <bpmn:outgoing>MineF_28</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_28" name="Loyalty points 29" camunda:delegateExpression="${mineStep28}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_28</bpmn:incoming>
+      <bpmn:outgoing>MineF_29</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Mine_29" name="Loyalty points 30" camunda:delegateExpression="${mineStep29}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:properties>
+          <camunda:property name="owner" value="Loyalty points" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>MineF_29</bpmn:incoming>
+    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0" sourceRef="Start_1" targetRef="Task_1" />
     <bpmn:sequenceFlow id="Flow_1" sourceRef="Task_1" targetRef="Task_2" />
     <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_2" targetRef="Task_3" />
@@ -62152,11 +62542,41 @@
     <bpmn:sequenceFlow id="Flow_4997" sourceRef="Task_4997" targetRef="Gateway_4998" />
     <bpmn:sequenceFlow id="Flow_4998" sourceRef="Gateway_4998" targetRef="End_1"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${amount > 4998}</bpmn:conditionExpression></bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_b0" sourceRef="Gateway_17" targetRef="Task_20"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${amount &lt;= 17}</bpmn:conditionExpression></bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="MineF_0" sourceRef="Task_202" targetRef="Mine_0" />
+    <bpmn:sequenceFlow id="MineF_1" sourceRef="Mine_0" targetRef="Mine_1" />
+    <bpmn:sequenceFlow id="MineF_2" sourceRef="Mine_1" targetRef="Mine_2" />
+    <bpmn:sequenceFlow id="MineF_3" sourceRef="Mine_2" targetRef="Mine_3" />
+    <bpmn:sequenceFlow id="MineF_4" sourceRef="Mine_3" targetRef="Mine_4" />
+    <bpmn:sequenceFlow id="MineF_5" sourceRef="Mine_4" targetRef="Mine_5" />
+    <bpmn:sequenceFlow id="MineF_6" sourceRef="Mine_5" targetRef="Mine_6" />
+    <bpmn:sequenceFlow id="MineF_7" sourceRef="Mine_6" targetRef="Mine_7" />
+    <bpmn:sequenceFlow id="MineF_8" sourceRef="Mine_7" targetRef="Mine_8" />
+    <bpmn:sequenceFlow id="MineF_9" sourceRef="Mine_8" targetRef="Mine_9" />
+    <bpmn:sequenceFlow id="MineF_10" sourceRef="Mine_9" targetRef="Mine_10" />
+    <bpmn:sequenceFlow id="MineF_11" sourceRef="Mine_10" targetRef="Mine_11" />
+    <bpmn:sequenceFlow id="MineF_12" sourceRef="Mine_11" targetRef="Mine_12" />
+    <bpmn:sequenceFlow id="MineF_13" sourceRef="Mine_12" targetRef="Mine_13" />
+    <bpmn:sequenceFlow id="MineF_14" sourceRef="Mine_13" targetRef="Mine_14" />
+    <bpmn:sequenceFlow id="MineF_15" sourceRef="Mine_14" targetRef="Mine_15" />
+    <bpmn:sequenceFlow id="MineF_16" sourceRef="Mine_15" targetRef="Mine_16" />
+    <bpmn:sequenceFlow id="MineF_17" sourceRef="Mine_16" targetRef="Mine_17" />
+    <bpmn:sequenceFlow id="MineF_18" sourceRef="Mine_17" targetRef="Mine_18" />
+    <bpmn:sequenceFlow id="MineF_19" sourceRef="Mine_18" targetRef="Mine_19" />
+    <bpmn:sequenceFlow id="MineF_20" sourceRef="Mine_19" targetRef="Mine_20" />
+    <bpmn:sequenceFlow id="MineF_21" sourceRef="Mine_20" targetRef="Mine_21" />
+    <bpmn:sequenceFlow id="MineF_22" sourceRef="Mine_21" targetRef="Mine_22" />
+    <bpmn:sequenceFlow id="MineF_23" sourceRef="Mine_22" targetRef="Mine_23" />
+    <bpmn:sequenceFlow id="MineF_24" sourceRef="Mine_23" targetRef="Mine_24" />
+    <bpmn:sequenceFlow id="MineF_25" sourceRef="Mine_24" targetRef="Mine_25" />
+    <bpmn:sequenceFlow id="MineF_26" sourceRef="Mine_25" targetRef="Mine_26" />
+    <bpmn:sequenceFlow id="MineF_27" sourceRef="Mine_26" targetRef="Mine_27" />
+    <bpmn:sequenceFlow id="MineF_28" sourceRef="Mine_27" targetRef="Mine_28" />
+    <bpmn:sequenceFlow id="MineF_29" sourceRef="Mine_28" targetRef="Mine_29" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
-    <bpmndi:BPMNShape id="Part_1_di" bpmnElement="Part_1" isHorizontal="true"><dc:Bounds x="100" y="40" width="6590" height="17640" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Part_1_di" bpmnElement="Part_1" isHorizontal="true"><dc:Bounds x="100" y="40" width="6590" height="18080" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Lane_A_di" bpmnElement="Lane_A" isHorizontal="true"><dc:Bounds x="130" y="40" width="6560" height="8720" /></bpmndi:BPMNShape>
-    <bpmndi:BPMNShape id="Lane_B_di" bpmnElement="Lane_B" isHorizontal="true"><dc:Bounds x="130" y="8760" width="6560" height="8920" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Lane_B_di" bpmnElement="Lane_B" isHorizontal="true"><dc:Bounds x="130" y="8760" width="6560" height="9360" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Start_1_di" bpmnElement="Start_1"><dc:Bounds x="150" y="100" width="36" height="36" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Task_1_di" bpmnElement="Task_1"><dc:Bounds x="310" y="100" width="100" height="80" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Task_2_di" bpmnElement="Task_2"><dc:Bounds x="470" y="100" width="100" height="80" /></bpmndi:BPMNShape>
@@ -67157,6 +67577,36 @@
     <bpmndi:BPMNShape id="Task_4997_di" bpmnElement="Task_4997"><dc:Bounds x="6070" y="17460" width="100" height="80" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Gateway_4998_di" bpmnElement="Gateway_4998"><dc:Bounds x="6230" y="17460" width="50" height="50" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="End_1_di" bpmnElement="End_1"><dc:Bounds x="6390" y="17460" width="36" height="36" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_0_di" bpmnElement="Mine_0"><dc:Bounds x="3350" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_1_di" bpmnElement="Mine_1"><dc:Bounds x="3510" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_2_di" bpmnElement="Mine_2"><dc:Bounds x="3670" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_3_di" bpmnElement="Mine_3"><dc:Bounds x="3830" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_4_di" bpmnElement="Mine_4"><dc:Bounds x="3990" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_5_di" bpmnElement="Mine_5"><dc:Bounds x="4150" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_6_di" bpmnElement="Mine_6"><dc:Bounds x="4310" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_7_di" bpmnElement="Mine_7"><dc:Bounds x="4470" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_8_di" bpmnElement="Mine_8"><dc:Bounds x="4630" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_9_di" bpmnElement="Mine_9"><dc:Bounds x="4790" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_10_di" bpmnElement="Mine_10"><dc:Bounds x="4950" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_11_di" bpmnElement="Mine_11"><dc:Bounds x="5110" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_12_di" bpmnElement="Mine_12"><dc:Bounds x="5270" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_13_di" bpmnElement="Mine_13"><dc:Bounds x="5430" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_14_di" bpmnElement="Mine_14"><dc:Bounds x="5590" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_15_di" bpmnElement="Mine_15"><dc:Bounds x="5750" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_16_di" bpmnElement="Mine_16"><dc:Bounds x="5910" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_17_di" bpmnElement="Mine_17"><dc:Bounds x="6070" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_18_di" bpmnElement="Mine_18"><dc:Bounds x="6230" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_19_di" bpmnElement="Mine_19"><dc:Bounds x="6390" y="17760" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_20_di" bpmnElement="Mine_20"><dc:Bounds x="3350" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_21_di" bpmnElement="Mine_21"><dc:Bounds x="3510" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_22_di" bpmnElement="Mine_22"><dc:Bounds x="3670" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_23_di" bpmnElement="Mine_23"><dc:Bounds x="3830" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_24_di" bpmnElement="Mine_24"><dc:Bounds x="3990" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_25_di" bpmnElement="Mine_25"><dc:Bounds x="4150" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_26_di" bpmnElement="Mine_26"><dc:Bounds x="4310" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_27_di" bpmnElement="Mine_27"><dc:Bounds x="4470" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_28_di" bpmnElement="Mine_28"><dc:Bounds x="4630" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Mine_29_di" bpmnElement="Mine_29"><dc:Bounds x="4790" y="17900" width="100" height="80" /></bpmndi:BPMNShape>
     <bpmndi:BPMNEdge id="Flow_0_di" bpmnElement="Flow_0"><di:waypoint x="186" y="118" /><di:waypoint x="310" y="140" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="410" y="140" /><di:waypoint x="470" y="140" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="570" y="140" /><di:waypoint x="630" y="140" /></bpmndi:BPMNEdge>
@@ -72157,5 +72607,35 @@
     <bpmndi:BPMNEdge id="Flow_4997_di" bpmnElement="Flow_4997"><di:waypoint x="6170" y="17500" /><di:waypoint x="6230" y="17485" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_4998_di" bpmnElement="Flow_4998"><di:waypoint x="6280" y="17485" /><di:waypoint x="6390" y="17478" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_b0_di" bpmnElement="Flow_b0"><di:waypoint x="2920" y="125" /><di:waypoint x="3350" y="140" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_0_di" bpmnElement="MineF_0"><di:waypoint x="570" y="840" /><di:waypoint x="3350" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_1_di" bpmnElement="MineF_1"><di:waypoint x="3450" y="17800" /><di:waypoint x="3510" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_2_di" bpmnElement="MineF_2"><di:waypoint x="3610" y="17800" /><di:waypoint x="3670" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_3_di" bpmnElement="MineF_3"><di:waypoint x="3770" y="17800" /><di:waypoint x="3830" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_4_di" bpmnElement="MineF_4"><di:waypoint x="3930" y="17800" /><di:waypoint x="3990" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_5_di" bpmnElement="MineF_5"><di:waypoint x="4090" y="17800" /><di:waypoint x="4150" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_6_di" bpmnElement="MineF_6"><di:waypoint x="4250" y="17800" /><di:waypoint x="4310" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_7_di" bpmnElement="MineF_7"><di:waypoint x="4410" y="17800" /><di:waypoint x="4470" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_8_di" bpmnElement="MineF_8"><di:waypoint x="4570" y="17800" /><di:waypoint x="4630" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_9_di" bpmnElement="MineF_9"><di:waypoint x="4730" y="17800" /><di:waypoint x="4790" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_10_di" bpmnElement="MineF_10"><di:waypoint x="4890" y="17800" /><di:waypoint x="4950" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_11_di" bpmnElement="MineF_11"><di:waypoint x="5050" y="17800" /><di:waypoint x="5110" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_12_di" bpmnElement="MineF_12"><di:waypoint x="5210" y="17800" /><di:waypoint x="5270" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_13_di" bpmnElement="MineF_13"><di:waypoint x="5370" y="17800" /><di:waypoint x="5430" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_14_di" bpmnElement="MineF_14"><di:waypoint x="5530" y="17800" /><di:waypoint x="5590" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_15_di" bpmnElement="MineF_15"><di:waypoint x="5690" y="17800" /><di:waypoint x="5750" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_16_di" bpmnElement="MineF_16"><di:waypoint x="5850" y="17800" /><di:waypoint x="5910" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_17_di" bpmnElement="MineF_17"><di:waypoint x="6010" y="17800" /><di:waypoint x="6070" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_18_di" bpmnElement="MineF_18"><di:waypoint x="6170" y="17800" /><di:waypoint x="6230" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_19_di" bpmnElement="MineF_19"><di:waypoint x="6330" y="17800" /><di:waypoint x="6390" y="17800" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_20_di" bpmnElement="MineF_20"><di:waypoint x="6490" y="17800" /><di:waypoint x="3350" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_21_di" bpmnElement="MineF_21"><di:waypoint x="3450" y="17940" /><di:waypoint x="3510" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_22_di" bpmnElement="MineF_22"><di:waypoint x="3610" y="17940" /><di:waypoint x="3670" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_23_di" bpmnElement="MineF_23"><di:waypoint x="3770" y="17940" /><di:waypoint x="3830" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_24_di" bpmnElement="MineF_24"><di:waypoint x="3930" y="17940" /><di:waypoint x="3990" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_25_di" bpmnElement="MineF_25"><di:waypoint x="4090" y="17940" /><di:waypoint x="4150" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_26_di" bpmnElement="MineF_26"><di:waypoint x="4250" y="17940" /><di:waypoint x="4310" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_27_di" bpmnElement="MineF_27"><di:waypoint x="4410" y="17940" /><di:waypoint x="4470" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_28_di" bpmnElement="MineF_28"><di:waypoint x="4570" y="17940" /><di:waypoint x="4630" y="17940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="MineF_29_di" bpmnElement="MineF_29"><di:waypoint x="4730" y="17940" /><di:waypoint x="4790" y="17940" /></bpmndi:BPMNEdge>
   </bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
 </bpmn:definitions>

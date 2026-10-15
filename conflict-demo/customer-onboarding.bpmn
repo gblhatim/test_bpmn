@@ -761,7 +761,7 @@
     <bpmn:startEvent id="Start_1" name="Start">
       <bpmn:outgoing>Flow_0</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Task_1" name="Step 1 - handle case 1" camunda:candidateGroups="team-1">
+    <bpmn:userTask id="Task_1" name="Step 1 - handle case 1 (KYC)" camunda:candidateGroups="team-1">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -822,7 +822,7 @@
       <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_6" name="Step 6 - handle case 6">
+    <bpmn:userTask id="Task_6" name="Step 6 - handle case 6 (KYC)">
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:userTask>
@@ -873,7 +873,7 @@
       <bpmn:incoming>Flow_9</bpmn:incoming>
       <bpmn:outgoing>Flow_10</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_11" name="Step 11 - handle case 11" camunda:candidateGroups="team-0">
+    <bpmn:userTask id="Task_11" name="Step 11 - handle case 11 (KYC)" camunda:candidateGroups="team-0">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -923,7 +923,7 @@
       <bpmn:incoming>Flow_14</bpmn:incoming>
       <bpmn:outgoing>Flow_15</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_16" name="Step 16 - handle case 16" camunda:candidateGroups="team-5">
+    <bpmn:userTask id="Task_16" name="Step 16 - handle case 16 (KYC)" camunda:candidateGroups="team-5">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -977,7 +977,7 @@
       <bpmn:incoming>Flow_b0</bpmn:incoming>
       <bpmn:outgoing>Flow_20</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_21" name="Step 21 - handle case 21">
+    <bpmn:userTask id="Task_21" name="Step 21 - handle case 21 (KYC)">
       <bpmn:incoming>Flow_20</bpmn:incoming>
       <bpmn:outgoing>Flow_21</bpmn:outgoing>
     </bpmn:userTask>
@@ -1027,7 +1027,7 @@
       <bpmn:incoming>Flow_24</bpmn:incoming>
       <bpmn:outgoing>Flow_25</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_26" name="Step 26 - handle case 26" camunda:candidateGroups="team-4">
+    <bpmn:userTask id="Task_26" name="Step 26 - handle case 26 (KYC)" camunda:candidateGroups="team-4">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -1078,7 +1078,7 @@
       <bpmn:incoming>Flow_29</bpmn:incoming>
       <bpmn:outgoing>Flow_30</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_31" name="Step 31 - handle case 31" camunda:candidateGroups="team-9">
+    <bpmn:userTask id="Task_31" name="Step 31 - handle case 31 (KYC)" camunda:candidateGroups="team-9">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -1129,7 +1129,7 @@
       <bpmn:incoming>Flow_34</bpmn:incoming>
       <bpmn:outgoing>Flow_35</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_36" name="Step 36 - handle case 36">
+    <bpmn:userTask id="Task_36" name="Step 36 - handle case 36 (KYC)">
       <bpmn:incoming>Flow_35</bpmn:incoming>
       <bpmn:outgoing>Flow_36</bpmn:outgoing>
     </bpmn:userTask>
@@ -1180,7 +1180,7 @@
       <bpmn:incoming>Flow_39</bpmn:incoming>
       <bpmn:outgoing>Flow_40</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_41" name="Step 41 - handle case 41" camunda:candidateGroups="team-8">
+    <bpmn:userTask id="Task_41" name="Step 41 - handle case 41 (KYC)" camunda:candidateGroups="team-8">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -1231,7 +1231,7 @@
       <bpmn:incoming>Flow_44</bpmn:incoming>
       <bpmn:outgoing>Flow_45</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_46" name="Step 46 - handle case 46" camunda:candidateGroups="team-2">
+    <bpmn:userTask id="Task_46" name="Step 46 - handle case 46 (KYC)" camunda:candidateGroups="team-2">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>

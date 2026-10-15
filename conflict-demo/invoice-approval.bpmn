@@ -1525,7 +1525,7 @@
       <bpmn:incoming>Flow_0</bpmn:incoming>
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Task_2" name="Step 2 - handle case 2">
+    <bpmn:businessRuleTask id="Task_2" name="Step 2 - handle case 2">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -1538,7 +1538,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
-    </bpmn:scriptTask>
+    </bpmn:businessRuleTask>
     <bpmn:businessRuleTask id="Task_3" name="Step 3 - handle case 3">
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
@@ -1558,7 +1558,7 @@
       <bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_5" name="Step 5 - handle case 5" camunda:delegateExpression="${adapter5}" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_5" name="Step 5 - handle case 5" camunda:delegateExpression="${invoiceAdapterOracle}" camunda:asyncBefore="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="orderId">${orderId}</camunda:inputParameter>
@@ -1640,6 +1640,7 @@
     <bpmn:scriptTask id="Task_12" name="Step 12 - handle case 12">
       <bpmn:incoming>Flow_11</bpmn:incoming>
       <bpmn:outgoing>Flow_12</bpmn:outgoing>
+      <bpmn:outgoing>Flow_toRemoved</bpmn:outgoing>
     </bpmn:scriptTask>
     <bpmn:businessRuleTask id="Task_13" name="Step 13 - handle case 13">
       <bpmn:extensionElements>
@@ -1724,7 +1725,6 @@
         <camunda:executionListener delegateExpression="${audit6}" event="start" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_19</bpmn:incoming>
-      <bpmn:incoming>Flow_b0</bpmn:incoming>
       <bpmn:outgoing>Flow_20</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="Task_21" name="Step 21 - handle case 21">
@@ -1743,6 +1743,8 @@
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_21</bpmn:incoming>
+      <bpmn:incoming>Flow_b0</bpmn:incoming>
+      <bpmn:incoming>Flow_toRemoved</bpmn:incoming>
       <bpmn:outgoing>Flow_22</bpmn:outgoing>
     </bpmn:scriptTask>
     <bpmn:businessRuleTask id="Task_23" name="Step 23 - handle case 23">
@@ -18642,7 +18644,8 @@
     <bpmn:sequenceFlow id="Flow_1496" sourceRef="Gateway_1496" targetRef="Task_1497"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${amount > 1496}</bpmn:conditionExpression></bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1497" sourceRef="Task_1497" targetRef="Task_1498" />
     <bpmn:sequenceFlow id="Flow_1498" sourceRef="Task_1498" targetRef="End_1" />
-    <bpmn:sequenceFlow id="Flow_b0" sourceRef="Gateway_17" targetRef="Task_20"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${amount &lt;= 17}</bpmn:conditionExpression></bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_b0" sourceRef="Gateway_17" targetRef="Task_22"><bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${amount &lt;= 17}</bpmn:conditionExpression></bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_toRemoved" sourceRef="Task_12" targetRef="Task_22" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
     <bpmndi:BPMNShape id="Part_1_di" bpmnElement="Part_1" isHorizontal="true"><dc:Bounds x="100" y="40" width="6590" height="5460" /></bpmndi:BPMNShape>
@@ -21647,6 +21650,7 @@
     <bpmndi:BPMNEdge id="Flow_1496_di" bpmnElement="Flow_1496"><di:waypoint x="2760" y="5305" /><di:waypoint x="2870" y="5320" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_1497_di" bpmnElement="Flow_1497"><di:waypoint x="2970" y="5320" /><di:waypoint x="3030" y="5320" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_1498_di" bpmnElement="Flow_1498"><di:waypoint x="3130" y="5320" /><di:waypoint x="3190" y="5298" /></bpmndi:BPMNEdge>
-    <bpmndi:BPMNEdge id="Flow_b0_di" bpmnElement="Flow_b0"><di:waypoint x="2920" y="125" /><di:waypoint x="3350" y="140" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_b0_di" bpmnElement="Flow_b0"><di:waypoint x="2920" y="125" /><di:waypoint x="3670" y="140" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_toRemoved_di" bpmnElement="Flow_toRemoved"><di:waypoint x="2170" y="140" /><di:waypoint x="3670" y="140" /></bpmndi:BPMNEdge>
   </bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
 </bpmn:definitions>
