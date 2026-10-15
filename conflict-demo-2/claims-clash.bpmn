@@ -25,30 +25,32 @@
         <bpmn:flowNodeRef>Task_Escalate</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gw_Fraud</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_FraudCheck</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Fraud</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Bnd_Timeout</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Bnd_FraudErr</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Finance" name="Finance">
         <bpmn:flowNodeRef>Gw_Split</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Payout</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Ledger</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gw_Join</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Catch_Wait</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Catch_Confirm</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_Notify</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>End_Paid</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Bnd_FraudErr</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="Start_Claim" name="Claim submitted">
       <bpmn:outgoing>Flow_Start</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MED_Start" messageRef="Msg_ClaimSubmitted" />
     </bpmn:startEvent>
-    <bpmn:userTask id="Task_Register" name="Register claim" camunda:assignee="intake-team" camunda:formKey="embedded:app:forms/register.html">
-      <bpmn:extensionElements><camunda:formData><camunda:formField id="claimId" label="Claim number" type="string" /><camunda:formField id="amount" label="Amount claimed (EUR)" type="long" /></camunda:formData><camunda:taskListener class="com.acme.claims.AssignListener" event="create" /></bpmn:extensionElements>
+    <bpmn:userTask id="Task_Register" name="Register claim" camunda:assignee="intake-lead" camunda:formKey="embedded:app:forms/register.html">
+      <bpmn:extensionElements><camunda:formData><camunda:formField id="claimId" label="Claim number" type="string" /><camunda:formField id="amount" label="Claim amount" type="long" /></camunda:formData><camunda:taskListener class="com.acme.claims.AssignListener" event="create" /></bpmn:extensionElements>
       <bpmn:incoming>Flow_Start</bpmn:incoming>
       <bpmn:outgoing>Flow_Register</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DOA_ClaimFile"><bpmn:targetRef>DOR_ClaimFile</bpmn:targetRef></bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Task_CheckPolicy" name="Check coverage (automated)" camunda:class="com.acme.claims.PolicyCheck" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_CheckPolicy" name="Check policy coverage" camunda:class="com.acme.claims.PolicyCheck" camunda:asyncBefore="true">
       <bpmn:extensionElements><camunda:inputOutput><camunda:inputParameter name="policyNo">${policyNumber}</camunda:inputParameter><camunda:inputParameter name="region">EU</camunda:inputParameter></camunda:inputOutput></bpmn:extensionElements>
       <bpmn:incoming>Flow_Register</bpmn:incoming>
       <bpmn:outgoing>Flow_Check</bpmn:outgoing>
@@ -75,7 +77,7 @@
       <bpmn:scriptTask id="Sub_Estimate" name="Estimate repair cost" scriptFormat="javascript">
         <bpmn:incoming>Flow_S2</bpmn:incoming>
         <bpmn:outgoing>Flow_S3</bpmn:outgoing>
-        <bpmn:script>execution.setVariable(&quot;estimate&quot;, amount * 0.7);</bpmn:script>
+        <bpmn:script>execution.setVariable(&quot;estimate&quot;, amount * 0.9 - 100);</bpmn:script>
       </bpmn:scriptTask>
       <bpmn:endEvent id="Sub_End" name="">
         <bpmn:incoming>Flow_S3</bpmn:incoming>
@@ -86,38 +88,50 @@
     </bpmn:subProcess>
     <bpmn:boundaryEvent id="Bnd_Timeout" name="48h without assessment" attachedToRef="Sub_Assess">
       <bpmn:outgoing>Flow_Timeout</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TED_Timeout"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT24H</bpmn:timeDuration></bpmn:timerEventDefinition>
+      <bpmn:timerEventDefinition id="TED_Timeout"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT72H</bpmn:timeDuration></bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:userTask id="Task_Escalate" name="Escalate to supervisor" camunda:candidateGroups="supervisors">
       <bpmn:incoming>Flow_Timeout</bpmn:incoming>
-      <bpmn:incoming>Flow_FraudErr</bpmn:incoming>
       <bpmn:outgoing>Flow_Escalated</bpmn:outgoing>
+      <bpmn:outgoing>Flow_EscalateFraud</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:inclusiveGateway id="Gw_Fraud" name="Fraud suspected?">
+    <bpmn:parallelGateway id="Gw_Fraud" name="Fraud suspected?">
       <bpmn:incoming>Flow_Assessed</bpmn:incoming>
       <bpmn:incoming>Flow_Escalated</bpmn:incoming>
       <bpmn:outgoing>Flow_Suspicious</bpmn:outgoing>
       <bpmn:outgoing>Flow_Clear</bpmn:outgoing>
-    </bpmn:inclusiveGateway>
+    </bpmn:parallelGateway>
     <bpmn:businessRuleTask id="Task_FraudCheck" name="Fraud scoring" camunda:decisionRef="fraudScore" camunda:resultVariable="fraudScore" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_Suspicious</bpmn:incoming>
       <bpmn:outgoing>Flow_Scored</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:boundaryEvent id="Bnd_FraudErr" name="Fraud" attachedToRef="Task_Payout">
+    <bpmn:boundaryEvent id="Bnd_FraudErr" name="Fraud" attachedToRef="Sub_Assess">
       <bpmn:outgoing>Flow_FraudErr</bpmn:outgoing>
       <bpmn:errorEventDefinition id="EED_Fraud" errorRef="Err_Fraud" />
     </bpmn:boundaryEvent>
+    <bpmn:endEvent id="End_Fraud" name="Fraud case opened">
+      <bpmn:incoming>Flow_FraudErr</bpmn:incoming>
+      <bpmn:incoming>Flow_EscalateFraud</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerED_Fraud" />
+    </bpmn:endEvent>
     <bpmn:parallelGateway id="Gw_Split" name="">
       <bpmn:incoming>Flow_Clear</bpmn:incoming>
       <bpmn:incoming>Flow_Scored</bpmn:incoming>
       <bpmn:outgoing>Flow_ToPayout</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ToLedger</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:serviceTask id="Task_Payout" name="Pay out" camunda:type="external" camunda:topic="payout">
       <bpmn:incoming>Flow_ToPayout</bpmn:incoming>
       <bpmn:outgoing>Flow_Paid</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sendTask id="Task_Ledger" name="Post to ledger" camunda:delegateExpression="${ledgerAdapterV2}">
+      <bpmn:extensionElements><camunda:executionListener class="com.acme.claims.LedgerAudit" event="end" /></bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToLedger</bpmn:incoming>
+      <bpmn:outgoing>Flow_Posted</bpmn:outgoing>
+    </bpmn:sendTask>
     <bpmn:parallelGateway id="Gw_Join" name="">
       <bpmn:incoming>Flow_Paid</bpmn:incoming>
+      <bpmn:incoming>Flow_Posted</bpmn:incoming>
       <bpmn:outgoing>Flow_Joined</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:intermediateCatchEvent id="Catch_Wait" name="24h cooling-off">
@@ -128,9 +142,9 @@
     <bpmn:intermediateCatchEvent id="Catch_Confirm" name="Bank confirmation">
       <bpmn:incoming>Flow_Waited</bpmn:incoming>
       <bpmn:outgoing>Flow_Confirmed</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MED_Confirm" messageRef="Msg_PaymentSettled" />
+      <bpmn:messageEventDefinition id="MED_Confirm" messageRef="Msg_BankAck" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:sendTask id="Task_Notify" name="Notify customer" camunda:delegateExpression="${mailer}">
+    <bpmn:sendTask id="Task_Notify" name="Notify customer" camunda:delegateExpression="${mailerV2}">
       <bpmn:incoming>Flow_Confirmed</bpmn:incoming>
       <bpmn:outgoing>Flow_Done</bpmn:outgoing>
     </bpmn:sendTask>
@@ -148,19 +162,22 @@
     <bpmn:sequenceFlow id="Flow_Timeout" sourceRef="Bnd_Timeout" targetRef="Task_Escalate" />
     <bpmn:sequenceFlow id="Flow_Escalated" sourceRef="Task_Escalate" targetRef="Gw_Fraud" />
     <bpmn:sequenceFlow id="Flow_Suspicious" name="Yes" sourceRef="Gw_Fraud" targetRef="Task_FraudCheck">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${fraudScore &gt; 70}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${fraudScore &gt; 50}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_Clear" name="No" sourceRef="Gw_Fraud" targetRef="Gw_Split">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!suspicious}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_Scored" sourceRef="Task_FraudCheck" targetRef="Gw_Split" />
-    <bpmn:sequenceFlow id="Flow_FraudErr" sourceRef="Bnd_FraudErr" targetRef="Task_Escalate" />
+    <bpmn:sequenceFlow id="Flow_FraudErr" sourceRef="Bnd_FraudErr" targetRef="End_Fraud" />
     <bpmn:sequenceFlow id="Flow_ToPayout" sourceRef="Gw_Split" targetRef="Task_Payout" />
+    <bpmn:sequenceFlow id="Flow_ToLedger" sourceRef="Gw_Split" targetRef="Task_Ledger" />
     <bpmn:sequenceFlow id="Flow_Paid" sourceRef="Task_Payout" targetRef="Gw_Join" />
+    <bpmn:sequenceFlow id="Flow_Posted" sourceRef="Task_Ledger" targetRef="Gw_Join" />
     <bpmn:sequenceFlow id="Flow_Joined" sourceRef="Gw_Join" targetRef="Catch_Wait" />
     <bpmn:sequenceFlow id="Flow_Waited" sourceRef="Catch_Wait" targetRef="Catch_Confirm" />
     <bpmn:sequenceFlow id="Flow_Confirmed" sourceRef="Catch_Confirm" targetRef="Task_Notify" />
     <bpmn:sequenceFlow id="Flow_Done" sourceRef="Task_Notify" targetRef="End_Paid" />
+    <bpmn:sequenceFlow id="Flow_EscalateFraud" sourceRef="Task_Escalate" targetRef="End_Fraud" />
     <bpmn:dataObjectReference id="DOR_ClaimFile" name="Claim file" dataObjectRef="DO_ClaimFile" />
     <bpmn:dataObject id="DO_ClaimFile" />
     <bpmn:textAnnotation id="Ann_SLA"><bpmn:text>SLA: register within 1 working day</bpmn:text></bpmn:textAnnotation>
@@ -186,9 +203,11 @@
     <bpmndi:BPMNShape id="Task_Escalate_di" bpmnElement="Task_Escalate"><dc:Bounds x="1000" y="630" width="100" height="80" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Gw_Fraud_di" bpmnElement="Gw_Fraud"><dc:Bounds x="1220" y="495" width="50" height="50" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Task_FraudCheck_di" bpmnElement="Task_FraudCheck"><dc:Bounds x="1320" y="410" width="100" height="80" /></bpmndi:BPMNShape>
-    <bpmndi:BPMNShape id="Bnd_FraudErr_di" bpmnElement="Bnd_FraudErr"><dc:Bounds x="1612" y="852" width="36" height="36" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Bnd_FraudErr_di" bpmnElement="Bnd_FraudErr"><dc:Bounds x="1022" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="End_Fraud_di" bpmnElement="End_Fraud"><dc:Bounds x="1480" y="642" width="36" height="36" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Gw_Split_di" bpmnElement="Gw_Split"><dc:Bounds x="1460" y="845" width="50" height="50" /></bpmndi:BPMNShape>
-    <bpmndi:BPMNShape id="Task_Payout_di" bpmnElement="Task_Payout"><dc:Bounds x="1580" y="790" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Task_Payout_di" bpmnElement="Task_Payout"><dc:Bounds x="1540" y="720" width="100" height="80" /></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="Task_Ledger_di" bpmnElement="Task_Ledger"><dc:Bounds x="1560" y="900" width="100" height="80" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Gw_Join_di" bpmnElement="Gw_Join"><dc:Bounds x="1720" y="845" width="50" height="50" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Catch_Wait_di" bpmnElement="Catch_Wait"><dc:Bounds x="1810" y="852" width="36" height="36" /></bpmndi:BPMNShape>
     <bpmndi:BPMNShape id="Catch_Confirm_di" bpmnElement="Catch_Confirm"><dc:Bounds x="1900" y="852" width="36" height="36" /></bpmndi:BPMNShape>
@@ -210,13 +229,16 @@
     <bpmndi:BPMNEdge id="Flow_Suspicious_di" bpmnElement="Flow_Suspicious"><di:waypoint x="1270" y="520" /><di:waypoint x="1295" y="520" /><di:waypoint x="1295" y="450" /><di:waypoint x="1320" y="450" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Clear_di" bpmnElement="Flow_Clear"><di:waypoint x="1270" y="520" /><di:waypoint x="1365" y="520" /><di:waypoint x="1365" y="870" /><di:waypoint x="1460" y="870" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Scored_di" bpmnElement="Flow_Scored"><di:waypoint x="1420" y="450" /><di:waypoint x="1440" y="450" /><di:waypoint x="1440" y="870" /><di:waypoint x="1460" y="870" /></bpmndi:BPMNEdge>
-    <bpmndi:BPMNEdge id="Flow_FraudErr_di" bpmnElement="Flow_FraudErr"><di:waypoint x="1630" y="852" /><di:waypoint x="1630" y="781" /><di:waypoint x="1050" y="781" /><di:waypoint x="1050" y="710" /></bpmndi:BPMNEdge>
-    <bpmndi:BPMNEdge id="Flow_ToPayout_di" bpmnElement="Flow_ToPayout"><di:waypoint x="1510" y="870" /><di:waypoint x="1545" y="870" /><di:waypoint x="1545" y="830" /><di:waypoint x="1580" y="830" /></bpmndi:BPMNEdge>
-    <bpmndi:BPMNEdge id="Flow_Paid_di" bpmnElement="Flow_Paid"><di:waypoint x="1680" y="830" /><di:waypoint x="1700" y="830" /><di:waypoint x="1700" y="870" /><di:waypoint x="1720" y="870" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_FraudErr_di" bpmnElement="Flow_FraudErr"><di:waypoint x="1058" y="420" /><di:waypoint x="1269" y="420" /><di:waypoint x="1269" y="660" /><di:waypoint x="1480" y="660" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_ToPayout_di" bpmnElement="Flow_ToPayout"><di:waypoint x="1510" y="870" /><di:waypoint x="1525" y="870" /><di:waypoint x="1525" y="760" /><di:waypoint x="1540" y="760" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_ToLedger_di" bpmnElement="Flow_ToLedger"><di:waypoint x="1510" y="870" /><di:waypoint x="1535" y="870" /><di:waypoint x="1535" y="940" /><di:waypoint x="1560" y="940" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_Paid_di" bpmnElement="Flow_Paid"><di:waypoint x="1640" y="760" /><di:waypoint x="1680" y="760" /><di:waypoint x="1680" y="870" /><di:waypoint x="1720" y="870" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_Posted_di" bpmnElement="Flow_Posted"><di:waypoint x="1660" y="940" /><di:waypoint x="1690" y="940" /><di:waypoint x="1690" y="870" /><di:waypoint x="1720" y="870" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Joined_di" bpmnElement="Flow_Joined"><di:waypoint x="1770" y="870" /><di:waypoint x="1810" y="870" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Waited_di" bpmnElement="Flow_Waited"><di:waypoint x="1846" y="870" /><di:waypoint x="1900" y="870" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Confirmed_di" bpmnElement="Flow_Confirmed"><di:waypoint x="1936" y="870" /><di:waypoint x="1990" y="870" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Flow_Done_di" bpmnElement="Flow_Done"><di:waypoint x="2090" y="870" /><di:waypoint x="2150" y="870" /></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="Flow_EscalateFraud_di" bpmnElement="Flow_EscalateFraud"><di:waypoint x="1100" y="670" /><di:waypoint x="1290" y="670" /><di:waypoint x="1290" y="660" /><di:waypoint x="1480" y="660" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="DOA_ClaimFile_di" bpmnElement="DOA_ClaimFile"><di:waypoint x="350" y="300" /><di:waypoint x="350" y="315" /><di:waypoint x="350" y="315" /><di:waypoint x="350" y="330" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="Assoc_SLA_di" bpmnElement="Assoc_SLA"><di:waypoint x="350" y="220" /><di:waypoint x="350" y="203" /><di:waypoint x="360" y="203" /><di:waypoint x="360" y="185" /></bpmndi:BPMNEdge>
     <bpmndi:BPMNEdge id="MF_Submit_di" bpmnElement="MF_Submit"><di:waypoint x="218" y="100" /><di:waypoint x="218" y="242" /></bpmndi:BPMNEdge>
