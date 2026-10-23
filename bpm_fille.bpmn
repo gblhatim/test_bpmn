@@ -11,7 +11,6 @@
             <drools:metaValue>Logistics</drools:metaValue>
           </drools:metaData>
         </bpmn2:extensionElements>
-        <bpmn2:flowNodeRef>Task_12j0pib</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_1ocseyo" name="Secretary">
         <bpmn2:extensionElements>
@@ -67,7 +66,6 @@
       </bpmn2:extensionElements>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_0buzwss" sourceRef="InclusiveGateway_1dgb4sg" targetRef="ExclusiveGateway_1ouv9kf" />
-    <bpmn2:sequenceFlow id="SequenceFlow_0kz5g1t" sourceRef="Task_12j0pib" targetRef="InclusiveGateway_1dgb4sg" />
     <bpmn2:endEvent id="Event_042k091">
       <bpmn2:incoming>Flow_0tz4ikt</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -135,7 +133,6 @@ sandling?</drools:metaValue>
     </bpmn2:startEvent>
     <bpmn2:inclusiveGateway id="InclusiveGateway_1dgb4sg" gatewayDirection="Converging">
       <bpmn2:incoming>Flow_10q6lh8</bpmn2:incoming>
-      <bpmn2:incoming>SequenceFlow_0kz5g1t</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_0buzwss</bpmn2:outgoing>
     </bpmn2:inclusiveGateway>
     <bpmn2:scriptTask id="Activity_04pgl5c">
@@ -159,9 +156,6 @@ sandling?</drools:metaValue>
       <bpmn2:incoming>Flow_00v3t2a</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_00v3t2a" sourceRef="Activity_17s4mbp" targetRef="Event_1rk5upr" />
-    <bpmn2:serviceTask id="Task_12j0pib" name="Insure parcel">
-      <bpmn2:outgoing>SequenceFlow_0kz5g1t</bpmn2:outgoing>
-    </bpmn2:serviceTask>
     <bpmn2:endEvent id="Event_1wd7nn7">
       <bpmn2:incoming>Flow_192azhz</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -305,9 +299,6 @@ sandling?</drools:metaValue>
       <bpmndi:BPMNShape id="Event_1rk5upr_di" bpmnElement="Event_1rk5upr">
         <dc:Bounds x="1492" y="802" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1fnc8ty_di" bpmnElement="Task_12j0pib">
-        <dc:Bounds x="681" y="163" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1wd7nn7_di" bpmnElement="Event_1wd7nn7">
         <dc:Bounds x="1332" y="582" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -406,13 +397,6 @@ sandling?</drools:metaValue>
         <di:waypoint x="886" y="375" />
         <di:waypoint x="980" y="375" />
         <di:waypoint x="980" y="525" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_Task_12j0pib_to_shape_Activity_0s1ktqa" bpmnElement="SequenceFlow_0kz5g1t">
-        <di:waypoint x="781" y="203" />
-        <di:waypoint x="900" y="203" />
-        <di:waypoint x="900" y="297" />
-        <di:waypoint x="861" y="297" />
-        <di:waypoint x="861" y="353" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08batv4_di" bpmnElement="Flow_08batv4">
         <di:waypoint x="1254" y="707" />
